@@ -39,15 +39,34 @@
     </script>
 
     <style>
-        /* Base Presentation Styles */
+        /* Animated Background for the whole body */
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
         body {
             margin: 0;
             overflow: hidden; /* Hide scrollbars for presentation mode */
-            background: linear-gradient(135deg, #fce4ec 0%, #f3e5f5 100%);
+            background: linear-gradient(-45deg, #fce4ec, #f3e5f5, #f8bbd0, #e1bee7);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
             color: #4a4a4a;
             font-family: 'Montserrat', sans-serif;
         }
 
+        /* Floating Animation for 1st Slide */
+        @keyframes float {
+            0% { transform: translateY(0px); filter: drop-shadow(0 5px 15px rgba(244,143,177,0.4)); }
+            50% { transform: translateY(-20px); filter: drop-shadow(0 25px 20px rgba(244,143,177,0.2)); }
+            100% { transform: translateY(0px); filter: drop-shadow(0 5px 15px rgba(244,143,177,0.4)); }
+        }
+        .float-anim {
+            animation: float 4s ease-in-out infinite;
+        }
+
+        /* Slide Deck Container */
         .slide-deck {
             position: relative;
             width: 100vw;
@@ -61,13 +80,13 @@
         .slide {
             position: absolute;
             width: 90vw;
-            max-width: 1400px;
-            height: 85vh;
+            max-width: 1300px;
+            height: 85vh; /* Fixed height for consistency */
             background: rgba(255, 255, 255, 0.85); /* Glassmorphism effect */
-            backdrop-filter: blur(12px);
+            backdrop-filter: blur(15px);
             border-radius: 24px;
-            box-shadow: 0 25px 50px rgba(112, 48, 160, 0.08), inset 0 0 0 1px rgba(255,255,255,0.5);
-            padding: 60px 80px;
+            box-shadow: 0 25px 50px rgba(112, 48, 160, 0.08), inset 0 0 0 1px rgba(255,255,255,0.6);
+            padding: 50px 70px;
             opacity: 0;
             visibility: hidden;
             transform: scale(0.95);
@@ -83,7 +102,7 @@
             z-index: 10;
         }
 
-        /* Animation Classes */
+        /* Text Animation Classes */
         .fade-up {
             opacity: 0;
             transform: translateY(40px);
@@ -99,16 +118,14 @@
         .delay-100 { transition-delay: 100ms; }
         .delay-200 { transition-delay: 200ms; }
         .delay-300 { transition-delay: 300ms; }
-        .delay-400 { transition-delay: 400ms; }
-        .delay-500 { transition-delay: 500ms; }
 
         /* Typography */
         h1, h2, h3 { color: #7030a0; }
-        h1 { font-family: 'Playfair Display', serif; font-size: 4.5rem; line-height: 1.1; margin-bottom: 1rem; }
+        h1 { font-family: 'Playfair Display', serif; font-size: 4rem; line-height: 1.1; margin-bottom: 1rem; }
         h2.slide-title { 
             font-family: 'Playfair Display', serif; 
-            font-size: 3rem; 
-            margin-bottom: 2rem; 
+            font-size: 2.8rem; 
+            margin-bottom: 1.5rem; 
             border-bottom: 3px solid #f48fb1; 
             display: inline-block; 
             padding-bottom: 0.5rem;
@@ -119,35 +136,41 @@
             background: rgba(255, 255, 255, 0.9);
             border: 1px solid rgba(244, 143, 177, 0.3);
             border-radius: 16px;
-            padding: 30px;
+            padding: 25px;
             transition: all 0.3s ease;
             box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         .glass-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(112, 48, 160, 0.1);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(112, 48, 160, 0.12);
             border-color: #f48fb1;
         }
 
         .icon-circle {
-            width: 80px;
-            height: 80px;
+            width: 70px;
+            height: 70px;
             border-radius: 50%;
             background: linear-gradient(135deg, #fce4ec, #f3e5f5);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2rem;
+            font-size: 1.8rem;
             color: #f48fb1;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
             box-shadow: inset 0 0 0 2px #fff, 0 5px 15px rgba(244, 143, 177, 0.2);
+            margin-left: auto;
+            margin-right: auto;
         }
 
         /* Big Numbers */
         .big-number {
             font-family: 'Playfair Display', serif;
-            font-size: 5rem;
+            font-size: 4.5rem;
             font-weight: 700;
             background: linear-gradient(135deg, #7030a0, #f48fb1);
             -webkit-background-clip: text;
@@ -194,8 +217,8 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 4px;
-            background: rgba(255,255,255,0.5);
+            height: 5px;
+            background: rgba(255,255,255,0.3);
             z-index: 100;
         }
         .progress-bar {
@@ -205,36 +228,59 @@
             transition: width 0.3s ease;
         }
 
-        /* Elegant Budget Table */
+        /* COMPACT ELEGANT BUDGET TABLE */
+        .budget-table-container {
+            flex-grow: 1;
+            width: 100%;
+            display: flex;
+            align-items: center; /* Center the table vertically */
+            justify-content: center;
+        }
+
         .budget-table {
             width: 100%;
             border-collapse: separate;
-            border-spacing: 0 10px;
+            border-spacing: 0 6px; /* Reduced spacing to prevent cut-off */
         }
         .budget-table tr {
-            background: rgba(255,255,255,0.6);
+            background: rgba(255,255,255,0.7);
             transition: transform 0.2s;
         }
         .budget-table tr:hover {
-            transform: scale(1.02);
-            background: rgba(255,255,255,0.9);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transform: scale(1.01);
+            background: rgba(255,255,255,1);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
         }
         .budget-table td {
-            padding: 15px 25px;
-            font-size: 1.1rem;
+            padding: 10px 20px; /* Reduced padding to fit laptop screens */
+            font-size: 1rem; /* Slightly smaller font */
+            color: #333;
+            font-weight: 500;
         }
-        .budget-table td:first-child { border-radius: 10px 0 0 10px; font-weight: 500;}
-        .budget-table td:last-child { border-radius: 0 10px 10px 0; text-align: right; font-family: monospace; font-size: 1.3rem; color: #7030a0; font-weight: bold;}
+        .budget-table td:first-child { 
+            border-radius: 8px 0 0 8px; 
+        }
+        .budget-table td:last-child { 
+            border-radius: 0 8px 8px 0; 
+            text-align: right; 
+            font-family: monospace; 
+            font-size: 1.15rem; 
+            color: #7030a0; 
+            font-weight: bold;
+        }
         .budget-table .total-row {
             background: linear-gradient(135deg, #7030a0, #4a148c);
         }
         .budget-table .total-row td {
             color: white;
-            font-size: 1.5rem;
+            font-size: 1.25rem;
             font-weight: 700;
+            padding: 15px 20px;
         }
-        .budget-table .total-row td:last-child { color: #fce4ec; }
+        .budget-table .total-row td:last-child { 
+            color: #fce4ec; 
+            font-size: 1.4rem;
+        }
 
     </style>
 </head>
@@ -249,14 +295,20 @@
 
     <div class="slide-deck" id="slideDeck">
 
-        <!-- Slide 1: Title -->
+        <!-- Slide 1: Title (WITH WOW FACTOR) -->
         <div class="slide active">
             <div class="flex flex-col items-center justify-center h-full text-center fade-up">
-                <div class="bg-pastel-pink text-white px-4 py-1 rounded-full text-sm font-bold tracking-widest uppercase mb-6 shadow-sm">Municipality of Angono</div>
-                <h1 class="mb-4">Annual Operational Plan<br>CY 2027</h1>
-                <div class="w-24 h-1 bg-pastel-pink rounded-full my-6 opacity-50"></div>
+                <!-- Floating Icon -->
+                <i class="fa-solid fa-hand-holding-heart text-6xl text-pastel-pink mb-6 float-anim"></i>
+                
+                <div class="bg-pastel-pink text-white px-5 py-1.5 rounded-full text-sm font-bold tracking-widest uppercase mb-4 shadow-sm">Municipality of Angono</div>
+                
+                <h1 class="mb-2">Annual Operational Plan<br>CY 2027</h1>
+                
+                <div class="w-32 h-1.5 bg-pastel-pink rounded-full my-6 opacity-60"></div>
+                
                 <p class="text-2xl text-text-muted italic font-serif mb-8">Strategic Targets & Funding Proposal</p>
-                <p class="text-lg font-medium text-pastel-plum mt-8 bg-white/50 px-6 py-3 rounded-xl border border-white">Presented to the Local Health Board<br>September 11, 2026</p>
+                <p class="text-base font-semibold text-pastel-plum mt-4 bg-white/60 px-6 py-3 rounded-xl border border-white backdrop-blur-sm">Presented to the Local Health Board<br>September 11, 2026</p>
             </div>
         </div>
 
@@ -264,27 +316,27 @@
         <div class="slide">
             <h2 class="slide-title fade-up">Priority 1: NCD Maintenance & Meds</h2>
             <div class="flex-grow flex items-center justify-center fade-up delay-100">
-                <div class="grid grid-cols-3 gap-8 w-full">
-                    <div class="glass-card flex flex-col items-center text-center">
+                <div class="grid grid-cols-3 gap-6 w-full">
+                    <div class="glass-card text-center">
                         <div class="icon-circle"><i class="fa-solid fa-heart-pulse"></i></div>
-                        <h3 class="text-xl font-bold mb-2">Hypertension</h3>
-                        <p class="text-text-muted mb-4">Securing continuous supply for high blood pressure patients.</p>
-                        <div class="mt-auto text-2xl font-bold text-pastel-pink">13,500 Boxes</div>
-                        <div class="text-sm font-medium text-pastel-plum">Losartan & Amlodipine</div>
+                        <h3 class="text-lg font-bold mb-2">Hypertension & Diabetes</h3>
+                        <p class="text-sm text-text-muted mb-4">Continuous supply for NCD patients.</p>
+                        <div class="mt-auto text-xl font-bold text-pastel-pink">18,500 Boxes</div>
+                        <div class="text-xs font-semibold text-pastel-plum">Losartan, Amlodipine, Metformin</div>
                     </div>
-                    <div class="glass-card flex flex-col items-center text-center delay-200">
-                        <div class="icon-circle"><i class="fa-solid fa-droplet"></i></div>
-                        <h3 class="text-xl font-bold mb-2">Diabetes Care</h3>
-                        <p class="text-text-muted mb-4">Vital maintenance medicine for diabetic residents.</p>
-                        <div class="mt-auto text-2xl font-bold text-pastel-pink">5,000 Boxes</div>
-                        <div class="text-sm font-medium text-pastel-plum">Metformin HCl 500mg</div>
-                    </div>
-                    <div class="glass-card flex flex-col items-center text-center delay-300">
+                    <div class="glass-card text-center delay-100">
                         <div class="icon-circle"><i class="fa-solid fa-capsules"></i></div>
-                        <h3 class="text-xl font-bold mb-2">Essential Antibiotics</h3>
-                        <p class="text-text-muted mb-4">Addressing common infections effectively.</p>
-                        <div class="mt-auto text-2xl font-bold text-pastel-pink">21,000 Pcs</div>
-                        <div class="text-sm font-medium text-pastel-plum">Cefixime, Cloxacillin, Doxycycline</div>
+                        <h3 class="text-lg font-bold mb-2">Essential Antibiotics</h3>
+                        <p class="text-sm text-text-muted mb-4">Addressing common infections effectively.</p>
+                        <div class="mt-auto text-xl font-bold text-pastel-pink">21,000 Pcs</div>
+                        <div class="text-xs font-semibold text-pastel-plum">Cefixime, Cloxacillin, Doxycycline</div>
+                    </div>
+                    <div class="glass-card text-center delay-200">
+                        <div class="icon-circle"><i class="fa-solid fa-briefcase-medical"></i></div>
+                        <h3 class="text-lg font-bold mb-2">Vitamins & Minor Care</h3>
+                        <p class="text-sm text-text-muted mb-4">Immune boosters and wound treatment.</p>
+                        <div class="mt-auto text-xl font-bold text-pastel-pink">92,000 Pcs</div>
+                        <div class="text-xs font-semibold text-pastel-plum">Vit B, Ascorbic, Metronidazole</div>
                     </div>
                 </div>
             </div>
@@ -293,17 +345,17 @@
         <!-- Slide 3: EPI -->
         <div class="slide">
             <h2 class="slide-title fade-up">Priority 2: Expanded Immunization</h2>
-            <div class="flex-grow flex items-center gap-16">
+            <div class="flex-grow flex items-center gap-12">
                 <div class="w-1/3 text-center fade-up delay-100">
                     <div class="big-number mb-2">14,000</div>
-                    <div class="text-2xl font-bold text-pastel-plum uppercase tracking-wide">Doses of PCV10</div>
+                    <div class="text-xl font-bold text-pastel-plum uppercase tracking-wide">Doses of PCV10</div>
                     <div class="w-16 h-1 bg-pastel-pink mx-auto mt-4 mb-4 rounded-full"></div>
-                    <p class="text-lg text-text-muted">Pneumococcal Conjugate Vaccine for infants</p>
+                    <p class="text-base text-text-muted">Pneumococcal Conjugate Vaccine for infants</p>
                 </div>
-                <div class="w-2/3 fade-up delay-200">
+                <div class="w-2/3 fade-up delay-200 h-full flex flex-col justify-center">
                     <div class="glass-card">
-                        <h3 class="text-2xl font-bold mb-6 flex items-center gap-3"><i class="fa-solid fa-shield-virus text-pastel-pink"></i> Protective Herd Immunity Targets</h3>
-                        <ul class="space-y-4 text-lg">
+                        <h3 class="text-xl font-bold mb-6 flex items-center gap-3"><i class="fa-solid fa-shield-virus text-pastel-pink text-2xl"></i> Protective Herd Immunity Targets</h3>
+                        <ul class="space-y-4 text-base">
                             <li class="flex items-center gap-4"><div class="w-2 h-2 rounded-full bg-pastel-plum"></div> <strong>12,000 Doses</strong> - Influenza Vaccine (Flu)</li>
                             <li class="flex items-center gap-4"><div class="w-2 h-2 rounded-full bg-pastel-plum"></div> <strong>12,000 Doses</strong> - PPSV23 Vaccine</li>
                             <li class="flex items-center gap-4"><div class="w-2 h-2 rounded-full bg-pastel-plum"></div> <strong>4,800 Doses</strong> - Pentavalent Vaccine</li>
@@ -318,34 +370,38 @@
         <div class="slide">
             <h2 class="slide-title fade-up">Priority 3: TB & Animal Bite Control</h2>
             <div class="flex-grow flex items-center justify-center fade-up delay-100">
-                <div class="grid grid-cols-2 gap-10 w-full">
-                    <div class="glass-card relative overflow-hidden">
-                        <div class="absolute -right-4 -top-4 opacity-10 text-9xl text-pastel-plum"><i class="fa-solid fa-lungs-virus"></i></div>
-                        <h3 class="text-2xl font-bold mb-4">Tuberculosis Eradication</h3>
-                        <p class="text-lg mb-6 text-text-dark">Aggressive active case finding through mobile x-rays and complete medicinal support.</p>
+                <div class="grid grid-cols-2 gap-8 w-full h-full pb-4">
+                    <div class="glass-card relative overflow-hidden flex flex-col justify-between">
+                        <div class="absolute -right-4 -top-4 opacity-5 text-8xl text-pastel-plum"><i class="fa-solid fa-lungs-virus"></i></div>
+                        <div>
+                            <h3 class="text-xl font-bold mb-3">Tuberculosis Eradication</h3>
+                            <p class="text-sm mb-6 text-text-dark">Aggressive active case finding through mobile x-rays and complete medicinal support.</p>
+                        </div>
                         <div class="bg-pastel-lilac/50 rounded-lg p-4">
                             <div class="flex justify-between items-center mb-2 border-b border-white/50 pb-2">
-                                <span class="font-medium">TB Management Kits</span>
-                                <span class="font-bold text-pastel-plum text-xl">1,000 Kits</span>
+                                <span class="font-semibold text-sm">TB Management Kits</span>
+                                <span class="font-bold text-pastel-plum text-lg">1,000 Kits</span>
                             </div>
                             <div class="flex justify-between items-center">
-                                <span class="font-medium">Target Presumptive Patients</span>
-                                <span class="font-bold text-pastel-plum text-xl">500 Pax</span>
+                                <span class="font-semibold text-sm">Target Presumptive Patients</span>
+                                <span class="font-bold text-pastel-plum text-lg">500 Pax</span>
                             </div>
                         </div>
                     </div>
-                    <div class="glass-card relative overflow-hidden delay-200">
-                        <div class="absolute -right-4 -top-4 opacity-10 text-9xl text-pastel-plum"><i class="fa-solid fa-dog"></i></div>
-                        <h3 class="text-2xl font-bold mb-4">Rabies Prevention</h3>
-                        <p class="text-lg mb-6 text-text-dark">Sustaining our Animal Bite Treatment Center to ensure immediate care for residents.</p>
+                    <div class="glass-card relative overflow-hidden flex flex-col justify-between delay-100">
+                        <div class="absolute -right-4 -top-4 opacity-5 text-8xl text-pastel-plum"><i class="fa-solid fa-dog"></i></div>
+                        <div>
+                            <h3 class="text-xl font-bold mb-3">Rabies Prevention</h3>
+                            <p class="text-sm mb-6 text-text-dark">Sustaining our Animal Bite Treatment Center to ensure immediate care for residents.</p>
+                        </div>
                         <div class="bg-pastel-lilac/50 rounded-lg p-4">
                             <div class="flex justify-between items-center mb-2 border-b border-white/50 pb-2">
-                                <span class="font-medium">PVRV ARV Vials</span>
-                                <span class="font-bold text-pastel-plum text-xl">5,000 Vials</span>
+                                <span class="font-semibold text-sm">PVRV ARV Vials</span>
+                                <span class="font-bold text-pastel-plum text-lg">5,000 Vials</span>
                             </div>
                             <div class="flex justify-between items-center">
-                                <span class="font-medium">Equine Immunoglobulin</span>
-                                <span class="font-bold text-pastel-plum text-xl">1,000 Vials</span>
+                                <span class="font-semibold text-sm">Equine Immunoglobulin</span>
+                                <span class="font-bold text-pastel-plum text-lg">1,000 Vials</span>
                             </div>
                         </div>
                     </div>
@@ -357,30 +413,31 @@
         <div class="slide">
             <h2 class="slide-title fade-up">Priority 4: Frontliners & HRH</h2>
             <div class="flex-grow flex flex-col justify-center items-center text-center fade-up delay-100">
-                <div class="big-number mb-4">100%</div>
-                <h3 class="text-3xl font-bold text-pastel-plum mb-6">BHW, BNS & Job Order Benefits</h3>
-                <p class="text-xl max-w-3xl mx-auto mb-10 text-text-dark">Proposing full SSS and PhilHealth benefit coverage for our 134 frontline health workers to ensure their welfare and security.</p>
+                <div class="big-number mb-2 text-5xl">100%</div>
+                <h3 class="text-2xl font-bold text-pastel-plum mb-4">BHW, BNS & Job Order Benefits</h3>
+                <p class="text-lg max-w-3xl mx-auto mb-8 text-text-dark">Proposing full SSS and PhilHealth benefit coverage for our 134 frontline health workers to ensure their welfare and security.</p>
                 
                 <div class="flex gap-6 w-full max-w-4xl mx-auto delay-200 fade-up">
-                    <div class="glass-card flex-1">
+                    <div class="glass-card flex-1 p-6">
                         <i class="fa-solid fa-user-nurse text-3xl text-pastel-pink mb-3"></i>
-                        <h4 class="font-bold text-lg">Capacity Expansion</h4>
-                        <p class="text-sm mt-2">Hiring 10 additional Human Resources for Health (HRH) for the Super Health Center.</p>
+                        <h4 class="font-bold text-base">Capacity Expansion</h4>
+                        <p class="text-xs mt-2 text-text-muted">Hiring 10 additional Human Resources for Health (HRH) for the Super Health Center.</p>
                     </div>
-                    <div class="glass-card flex-1">
+                    <div class="glass-card flex-1 p-6">
                         <i class="fa-solid fa-tooth text-3xl text-pastel-pink mb-3"></i>
-                        <h4 class="font-bold text-lg">Dental Specialists</h4>
-                        <p class="text-sm mt-2">Hiring 1 Dentist IV and 1 Dental Admin to support robust oral health missions.</p>
+                        <h4 class="font-bold text-base">Dental Specialists</h4>
+                        <p class="text-xs mt-2 text-text-muted">Hiring 1 Dentist IV and 1 Dental Admin to support robust oral health missions.</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Slide 6: BUDGET TABLE -->
+        <!-- Slide 6: BUDGET TABLE (Fixed Overflow) -->
         <div class="slide">
-            <h2 class="slide-title fade-up" style="margin-bottom: 1rem;">2027 Budget Summary</h2>
-            <p class="text-lg mb-6 fade-up text-text-muted italic">Total funding requirement based on precise targets for 2027</p>
-            <div class="flex-grow w-full overflow-hidden fade-up delay-100">
+            <h2 class="slide-title fade-up" style="margin-bottom: 0.5rem;">2027 Budget Summary</h2>
+            <p class="text-sm mb-4 fade-up text-text-muted italic">Total funding requirement based on precise targets for 2027</p>
+            
+            <div class="budget-table-container fade-up delay-100">
                 <table class="budget-table">
                     <tbody>
                         <tr>
@@ -411,6 +468,7 @@
                             <td>7. Maternal, FP & STI Prevention</td>
                             <td>₱ 1,691,600.00</td>
                         </tr>
+                        <!-- Exact Total Based on the List -->
                         <tr class="total-row">
                             <td>TOTAL PROPOSED AOP BUDGET</td>
                             <td>₱ 105,329,000.00</td>
@@ -423,10 +481,10 @@
         <!-- Slide 7: Closing -->
         <div class="slide">
             <div class="flex flex-col items-center justify-center h-full text-center fade-up">
-                <div class="icon-circle" style="width:120px; height:120px; font-size: 3rem; margin-bottom: 2rem;"><i class="fa-solid fa-hand-holding-medical"></i></div>
-                <h1 class="mb-6" style="font-size: 3.5rem;">Ready for Endorsement</h1>
-                <p class="text-2xl max-w-3xl text-text-dark mb-8 leading-relaxed">These investments will guarantee that every resident of Angono feels the impact of Universal Health Care.</p>
-                <div class="bg-pastel-plum text-white px-8 py-4 rounded-2xl shadow-xl text-xl font-bold uppercase tracking-widest cursor-pointer hover:bg-pink-500 transition-colors duration-300">
+                <div class="icon-circle" style="width:100px; height:100px; font-size: 2.5rem; margin-bottom: 2rem;"><i class="fa-solid fa-hand-holding-medical"></i></div>
+                <h1 class="mb-4 text-5xl">Ready for Endorsement</h1>
+                <p class="text-xl max-w-3xl text-text-dark mb-8 leading-relaxed">These investments will guarantee that every resident of Angono feels the impact of Universal Health Care.</p>
+                <div class="bg-pastel-plum text-white px-8 py-4 rounded-xl shadow-xl text-lg font-bold uppercase tracking-widest cursor-pointer hover:bg-pink-500 transition-colors duration-300 transform hover:-translate-y-1">
                     Requesting LHB Approval
                 </div>
             </div>
