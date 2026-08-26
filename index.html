@@ -3,519 +3,569 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Angono AOP CY 2027 - Executive Presentation</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <title>Angono AOP CY 2027</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     
     <style>
         :root {
+            /* Classic Tiffany Blue */
             --tiffany-blue: #81D8D0;
-            --tiffany-dark: #3BA79E; 
+            --tiffany-dark: #0ABAB5;
+            
+            /* Classic Pastel Pink */
             --pastel-pink: #FFD1DC;
-            --pink-dark: #E5A9B8;
-            --bg-color: #F4FBFB; 
-            --text-dark: #1E293B; 
-            --text-muted: #475569; 
-            --white: #ffffff;
+            --pink-dark: #FFB6C1;
+            
+            /* Neutrals */
+            --white: #FFFFFF;
+            --bg-color: #FAFAFA;
+            --text-dark: #2C3E50;
+            --text-muted: #596A7A;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
         body {
-            background-color: #cbd5e1; 
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            background-color: var(--bg-color);
+            background-image: linear-gradient(135deg, rgba(129, 216, 208, 0.1) 0%, rgba(255, 209, 220, 0.1) 100%);
             font-family: 'Open Sans', sans-serif;
             color: var(--text-dark);
-            overflow: hidden; 
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .presentation-container {
-            width: 1280px;
-            height: 720px;
-            background-color: var(--white);
-            border-radius: 16px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            width: 100%;
+            max-width: 1400px;
+            height: 100%;
+            max-height: 800px;
             position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            border-top: 10px solid var(--tiffany-blue);
-            border-bottom: 10px solid var(--pastel-pink);
+            background-color: transparent;
         }
 
         .slide {
-            position: absolute;
-            top: 0;
-            left: 0;
+            display: none; /* Hidden by default, JS will show the active one */
             width: 100%;
             height: 100%;
-            padding: 60px 80px;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
-            transform: translateY(20px);
-            display: flex;
             flex-direction: column;
-            background: radial-gradient(circle at top right, rgba(129, 216, 208, 0.08) 0%, transparent 50%),
-                        radial-gradient(circle at bottom left, rgba(255, 209, 220, 0.15) 0%, transparent 50%);
+            padding: 40px 80px;
+            animation: fadeIn 0.5s ease-in-out;
         }
 
-        .slide.active {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        h1, h2, h3 { font-family: 'Montserrat', sans-serif; color: var(--text-dark); }
-        
-        .slide-title {
-            font-size: 42px;
-            font-weight: 700;
-            margin-bottom: 40px;
-            padding-bottom: 15px;
-            border-bottom: 3px solid var(--tiffany-blue);
-            display: inline-block;
-            width: 100%;
+        /* Titles and Typography */
+        h1, h2, h3 {
+            font-family: 'Montserrat', sans-serif;
             color: var(--tiffany-dark);
         }
 
-        p, li { font-size: 20px; line-height: 1.7; margin-bottom: 15px; }
-        ul { padding-left: 30px; }
+        .slide-header {
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid var(--pastel-pink);
+        }
 
+        .slide-header h2 {
+            font-size: 42px;
+            font-weight: 700;
+        }
+
+        .data-card {
+            background-color: var(--white);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+            border-top: 6px solid var(--tiffany-blue);
+            height: 100%;
+        }
+
+        /* Tables for Data */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th {
+            background-color: var(--pastel-pink);
+            color: var(--text-dark);
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 16px;
+            padding: 15px 20px;
+            text-align: left;
+        }
+
+        td {
+            padding: 15px 20px;
+            border-bottom: 1px solid #EEEEEE;
+            font-size: 18px;
+        }
+
+        td strong {
+            color: var(--tiffany-dark);
+            font-size: 22px;
+        }
+
+        /* Logos Container */
         .logos-container {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 50px;
-            margin-bottom: 30px;
+            gap: 40px;
+            margin-bottom: 40px;
         }
-        
-        .logo-box {
-            width: 150px;
-            height: 150px;
+
+        .logos-container img {
+            height: 140px;
+            object-fit: contain;
+        }
+
+        /* Center Layouts for Title Slide */
+        .center-layout {
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-        }
-        
-        .logo-box img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
-        }
-
-        .content-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            flex-grow: 1;
-            align-items: start;
-        }
-
-        .data-card {
-            background: var(--white);
-            border: 1px solid rgba(129, 216, 208, 0.3);
-            border-radius: 12px;
-            padding: 30px;
-            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
-            border-top: 5px solid var(--pastel-pink);
+            text-align: center;
             height: 100%;
         }
 
-        .data-card h3 {
-            font-size: 26px;
-            color: var(--tiffany-dark);
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
+        .center-layout h1 {
+            font-size: 65px;
+            margin-bottom: 15px;
         }
 
-        .data-card h3 i { color: var(--pink-dark); font-size: 30px; }
-
-        .highlight-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 0;
-            border-bottom: 1px solid #f1f5f9;
-        }
-        .highlight-item:last-child { border-bottom: none; }
-        .highlight-value { font-weight: 700; font-size: 24px; color: var(--text-dark); }
-        .highlight-label { color: var(--text-muted); font-size: 18px; }
-
-        .budget-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-            background: var(--white);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-        }
-        
-        .budget-table th, .budget-table td {
-            padding: 16px 20px;
-            text-align: left;
-            border-bottom: 1px solid #e2e8f0;
-            font-size: 18px;
-        }
-        
-        .budget-table th {
-            background-color: var(--tiffany-blue);
-            color: var(--text-dark);
-            font-weight: 700;
-            font-size: 20px;
-        }
-        
-        .budget-table td.amount { text-align: right; font-family: 'Montserrat', monospace; font-weight: 600; }
-        
-        .total-row {
-            background-color: var(--tiffany-dark);
-        }
-        .total-row td {
-            color: var(--white);
+        .center-layout p {
             font-size: 24px;
-            font-weight: 700;
-            padding: 20px;
-            border: none;
-        }
-        .total-row td.amount {
-            color: var(--pastel-pink);
-            font-size: 28px;
+            color: var(--text-muted);
         }
 
-        .title-slide { text-align: center; justify-content: center; }
-        .title-slide h1 { font-size: 65px; margin-bottom: 20px; line-height: 1.2; }
-        .title-slide .subtitle { font-size: 26px; color: var(--text-muted); font-weight: 400; margin-bottom: 40px; }
-        
-        .controls {
-            position: absolute;
-            bottom: 30px;
-            right: 40px;
-            display: flex;
-            gap: 15px;
-            z-index: 100;
-        }
-        
-        .btn {
+        /* Budget Slide Specific */
+        .budget-total-card {
             background-color: var(--tiffany-blue);
-            color: var(--text-dark);
-            border: none;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
+            color: var(--white);
+            text-align: center;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 20px rgba(10, 186, 181, 0.2);
+        }
+
+        .budget-total-card h3 {
+            color: var(--white);
             font-size: 20px;
+            margin-bottom: 5px;
+        }
+
+        .budget-total-card .amount {
+            font-size: 55px;
+            font-weight: 700;
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: 1px;
+        }
+
+        .two-col-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        /* Invisible Click Zones for Navigation */
+        .nav-zone {
+            position: fixed;
+            top: 0;
+            height: 100%;
+            width: 15%;
+            z-index: 999;
             cursor: pointer;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transition: all 0.2s ease;
-            display: flex;
-            justify-content: center;
-            align-items: center;
         }
-        
-        .btn:hover { background-color: var(--tiffany-dark); color: var(--white); transform: translateY(-3px); }
-        .btn:disabled { background-color: #cbd5e1; cursor: not-allowed; transform: none; }
-        
-        .progress-indicator {
-            position: absolute;
-            bottom: 45px;
-            left: 40px;
-            font-weight: 600;
-            color: var(--tiffany-dark);
-            font-size: 18px;
-        }
+        #prev-zone { left: 0; }
+        #next-zone { right: 0; }
+
     </style>
 </head>
 <body>
 
+    <!-- These handle mouse clicks on the left/right edges of the screen without showing any arrows -->
+    <div id="prev-zone" onclick="prevSlide()" title="Click to go back"></div>
+    <div id="next-zone" onclick="nextSlide()" title="Click to go next"></div>
+
     <div class="presentation-container">
-        
-        <div class="slide title-slide active" id="slide-1">
-            <div class="logos-container">
-                <!-- DOH Logo (Guaranteed Wikimedia URL) -->
-                <div class="logo-box">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Department_of_Health_%28DOH%29.svg/1024px-Department_of_Health_%28DOH%29.svg.png" alt="DOH">
-                </div>
-                <!-- MHO Angono Logo (Uploaded File Verbatim) -->
-                <div class="logo-box" style="width: 180px; height: 180px;">
-                    <img src="mho (1).png" alt="MHO Angono">
-                </div>
-                <!-- Angono LGU Logo (Uploaded File Verbatim) -->
-                <div class="logo-box">
-                    <img src="angono (1).png" alt="Angono LGU">
-                </div>
-            </div>
-            <h3 style="color: var(--tiffany-dark); font-size: 22px; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 15px;">Municipality of Angono</h3>
-            <h1>Annual Operational Plan<br>CY 2027</h1>
-            <p class="subtitle">Proposed Targets and Budgetary Requirements for Endorsement</p>
-            <p style="font-weight: 600; color: var(--text-dark); margin-top: 20px;">Presented to the Local Health Board • September 11, 2026</p>
-        </div>
 
-        <div class="slide" id="slide-2">
-            <h2 class="slide-title">Priority 1: Expanded Immunization (EPI)</h2>
-            <div class="content-grid">
-                <div style="padding-top: 20px;">
-                    <p>Protecting Angono's infants and children against vaccine-preventable diseases is our top priority. The 2027 AOP focuses on securing vital vaccines to ensure zero outbreaks and robust herd immunity across all barangays.</p>
-                    <p style="margin-top: 30px; font-weight: 600; color: var(--tiffany-dark);">Key Impact:</p>
-                    <ul>
-                        <li>Reduces under-5 child mortality rates.</li>
-                        <li>Prevents local community outbreaks of Polio and Measles.</li>
-                    </ul>
+        <div class="slide" style="display: flex;">
+            <div class="center-layout">
+                <!-- 
+                  Bulletproof Logos: 
+                  First it tries your uploaded file (e.g. "angono (1).png"). 
+                  If it fails, the 'onerror' triggers the direct Google Drive / Wikipedia URL. 
+                -->
+                <div class="logos-container">
+                    <img src="angono (1).png" alt="Angono Logo" onerror="this.onerror=null; this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Ph_seal_rizal_angono.png/600px-Ph_seal_rizal_angono.png'">
+                    <img src="mho (1).png" alt="MHO Logo" onerror="this.onerror=null; this.src='https://drive.google.com/uc?export=view&id=1BqWTCHhIrJXMNDC4juCEC8FmxWtC3iBs'">
+                    <img src="doh.png" alt="DOH Logo" onerror="this.onerror=null; this.src='https://drive.google.com/uc?export=view&id=1ajzYBo8BILP7xmVycYuent0WMF4iI2PG'">
                 </div>
-                <div class="data-card">
-                    <h3><i class="fa-solid fa-syringe"></i> 2027 Vaccine Targets</h3>
-                    <div class="highlight-item"><span class="highlight-label">PCV10 Vaccine</span> <span class="highlight-value">14,000 doses</span></div>
-                    <div class="highlight-item"><span class="highlight-label">Influenza (Flu) Vaccine</span> <span class="highlight-value">12,000 doses</span></div>
-                    <div class="highlight-item"><span class="highlight-label">PPSV23 (Pneumococcal)</span> <span class="highlight-value">12,000 doses</span></div>
-                    <div class="highlight-item"><span class="highlight-label">Pentavalent Vaccine</span> <span class="highlight-value">4,800 doses</span></div>
-                    <div class="highlight-item"><span class="highlight-label">MMR Vaccine</span> <span class="highlight-value">4,800 doses</span></div>
-                    <div class="highlight-item"><span class="highlight-label">Japanese Encephalitis</span> <span class="highlight-value">4,800 doses</span></div>
-                    <div class="highlight-item"><span class="highlight-label">bOPV (Oral Polio)</span> <span class="highlight-value">4,000 doses</span></div>
-                </div>
+                <h1>Annual Operational Plan<br>CY 2027</h1>
+                <p>Municipal Health Office - Municipality of Angono</p>
+                <div style="width: 80px; height: 4px; background-color: var(--pastel-pink); margin: 30px auto;"></div>
+                <p style="font-size: 18px; font-weight: 600; color: var(--tiffany-dark);">Presented to the Local Health Board</p>
             </div>
         </div>
 
-        <div class="slide" id="slide-3">
-            <h2 class="slide-title">Priority 2: NCDs & Essential Medicines</h2>
-            <div class="content-grid">
-                <div class="data-card">
-                    <h3><i class="fa-solid fa-pills"></i> 2027 Commodity Targets</h3>
-                    <div class="highlight-item"><span class="highlight-label">Losartan 50mg</span> <span class="highlight-value">7,000 boxes</span></div>
-                    <div class="highlight-item"><span class="highlight-label">Amlodipine 5mg</span> <span class="highlight-value">6,500 boxes</span></div>
-                    <div class="highlight-item"><span class="highlight-label">Metformin 500mg</span> <span class="highlight-value">5,000 boxes</span></div>
-                    <div class="highlight-item"><span class="highlight-label">Human Insulin Vials</span> <span class="highlight-value">3,000 vials</span></div>
-                    <div class="highlight-item"><span class="highlight-label">Essential Antibiotics</span> <span class="highlight-value">21,000 caps</span></div>
-                    <div class="highlight-item"><span class="highlight-label">Mupirocin Ointment</span> <span class="highlight-value">2,000 tubes</span></div>
+        <div class="slide">
+            <div class="slide-header">
+                <h2>Priority 1: Expanded Immunization (EPI)</h2>
+            </div>
+            <div class="data-card">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Program / Commodity</th>
+                            <th>2027 Target Allocation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Pneumococcal Conjugate Vaccine (PCV10)</td>
+                            <td><strong>14,000</strong> doses</td>
+                        </tr>
+                        <tr>
+                            <td>Influenza Vaccine (Flu)</td>
+                            <td><strong>12,000</strong> doses</td>
+                        </tr>
+                        <tr>
+                            <td>Pneumococcal Polysaccharide Vaccine (PPSV23)</td>
+                            <td><strong>12,000</strong> doses</td>
+                        </tr>
+                        <tr>
+                            <td>Pentavalent Vaccine & MMR Vaccine</td>
+                            <td><strong>4,800</strong> doses each</td>
+                        </tr>
+                        <tr>
+                            <td>Japanese Encephalitis (JE)</td>
+                            <td><strong>4,800</strong> doses</td>
+                        </tr>
+                        <tr>
+                            <td>Polio Vaccines (bOPV & IPV)</td>
+                            <td><strong>4,000</strong> doses each</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="slide-header">
+                <h2>Priority 2: NCD & Essential Medicines</h2>
+            </div>
+            <div class="data-card">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Medicine / Treatment Commodity</th>
+                            <th>2027 Target Quantity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Losartan 50mg/tab (100s)</td>
+                            <td><strong>7,000</strong> boxes</td>
+                        </tr>
+                        <tr>
+                            <td>Amlodipine 5mg/tab (100s)</td>
+                            <td><strong>6,500</strong> boxes</td>
+                        </tr>
+                        <tr>
+                            <td>Metformin HCl 500mg/tab (100s)</td>
+                            <td><strong>5,000</strong> boxes</td>
+                        </tr>
+                        <tr>
+                            <td>Human Insulin (Biphasic Isophane) vials</td>
+                            <td><strong>3,000</strong> vials</td>
+                        </tr>
+                        <tr>
+                            <td>Essential Antibiotics (Cloxacillin, Cefixime, Doxycycline, Metronidazole)</td>
+                            <td><strong>6,000 to 9,000</strong> caps/tabs each</td>
+                        </tr>
+                        <tr>
+                            <td>Animal Bite Treatment (PVRV Vials)</td>
+                            <td><strong>5,000</strong> vials</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="slide-header">
+                <h2>Priority 3: Oral Health Programs</h2>
+            </div>
+            <div class="data-card">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Program Commodity / Equipment</th>
+                            <th>2027 Target Quantity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Adult Dental Kits (Toothbrush, paste, floss)</td>
+                            <td><strong>1,500</strong> kits</td>
+                        </tr>
+                        <tr>
+                            <td>Kid's Dental Kits (Kiddie toothbrush, paste)</td>
+                            <td><strong>1,500</strong> kits</td>
+                        </tr>
+                        <tr>
+                            <td>Province-wide Awarding of Orally Fit Children</td>
+                            <td><strong>300</strong> pax</td>
+                        </tr>
+                        <tr>
+                            <td>Pits & Fissure Sealant (Pulpdent)</td>
+                            <td><strong>210</strong> units</td>
+                        </tr>
+                        <tr>
+                            <td>Dental Surgical Forcep Sets</td>
+                            <td><strong>2</strong> sets</td>
+                        </tr>
+                        <tr>
+                            <td>Autoclave Sterilizer</td>
+                            <td><strong>1</strong> unit</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="slide-header">
+                <h2>Priority 4: Family Planning & STI Prevention</h2>
+            </div>
+            <div class="data-card">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Outreach Mission Commodities</th>
+                            <th>2027 Target Quantity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>DMPA (Injectable Contraceptive)</td>
+                            <td><strong>10,000</strong> units</td>
+                        </tr>
+                        <tr>
+                            <td>Combined Oral Contraceptive (COC) Pills</td>
+                            <td><strong>8,000</strong> units</td>
+                        </tr>
+                        <tr>
+                            <td>Progestin-Only Pills (POP)</td>
+                            <td><strong>5,000</strong> units</td>
+                        </tr>
+                        <tr>
+                            <td>Intrauterine Devices (IUD) & Subdermal Implants</td>
+                            <td><strong>1,000</strong> units each</td>
+                        </tr>
+                        <tr>
+                            <td>Male Condoms</td>
+                            <td><strong>10,000</strong> units</td>
+                        </tr>
+                        <tr>
+                            <td>Lubricants, Syphilis Test Kits, HIV Test Kits</td>
+                            <td><strong>3,000</strong> lubricants / <strong>600</strong> kits each</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="slide-header">
+                <h2>Priority 5: Disease Control</h2>
+            </div>
+            <div class="data-card">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Surveillance & Prevention Activity</th>
+                            <th>2027 Target Implementation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>TB Presumptive Patients (Mobile X-Rays)</td>
+                            <td><strong>500</strong> patients</td>
+                        </tr>
+                        <tr>
+                            <td>TB Management Kits</td>
+                            <td><strong>1,000</strong> kits</td>
+                        </tr>
+                        <tr>
+                            <td>Treated Screens (Dengue Prevention)</td>
+                            <td><strong>100</strong> rolls</td>
+                        </tr>
+                        <tr>
+                            <td>Treated Bednets (Zero-Malaria Sustainability)</td>
+                            <td><strong>200</strong> nets</td>
+                        </tr>
+                        <tr>
+                            <td>Fogging Machine / Mistblower</td>
+                            <td><strong>1</strong> unit</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="slide-header">
+                <h2>Priority 6: Human Resources & Infra</h2>
+            </div>
+            <div class="data-card">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Workforce & Infrastructure Component</th>
+                            <th>2027 Target Capacity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Provision of Additional Benefits (SSS & PhilHealth)</td>
+                            <td><strong>100%</strong> of BHW, BNS, & JOs</td>
+                        </tr>
+                        <tr>
+                            <td>Hiring of Additional Human Resources for Health</td>
+                            <td><strong>10</strong> HRH personnel</td>
+                        </tr>
+                        <tr>
+                            <td>Hiring of Dental Personnel</td>
+                            <td><strong>1</strong> Dentist IV, <strong>1</strong> Admin Asst</td>
+                        </tr>
+                        <tr>
+                            <td>Procurement of ICT Equipments (Barangays & SHC)</td>
+                            <td><strong>5</strong> units</td>
+                        </tr>
+                        <tr>
+                            <td>Evacuation Center Med/Disaster Equipments</td>
+                            <td><strong>6</strong> units per category</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="slide-header">
+                <h2>CY 2027 Proposed Budget Requirements</h2>
+            </div>
+            <div class="budget-total-card">
+                <h3>Total Comprehensive AOP Budget</h3>
+                <div class="amount">₱ 105,329,000.00</div>
+            </div>
+            
+            <div class="two-col-grid">
+                <div class="data-card" style="padding: 20px;">
+                    <table style="font-size: 14px;">
+                        <tbody>
+                            <tr>
+                                <td>Expanded Program on Immunization</td>
+                                <td><strong>₱ 46.74 M</strong></td>
+                            </tr>
+                            <tr>
+                                <td>Essential Medicines & NCDs</td>
+                                <td><strong>₱ 13.87 M</strong></td>
+                            </tr>
+                            <tr>
+                                <td>Disease Surveillance (TB, Dengue)</td>
+                                <td><strong>₱ 13.38 M</strong></td>
+                            </tr>
+                            <tr>
+                                <td>HR for Health & Worker Benefits</td>
+                                <td><strong>₱ 9.59 M</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
-                <div style="padding-top: 20px;">
-                    <p>A massive push for primary care. We are investing heavily in maintenance medications for lifestyle-related diseases (Hypertension, Diabetes) and primary wound care to ensure free availability at our facilities.</p>
-                    
-                    <div class="data-card" style="margin-top: 30px; padding: 20px; border-top: 5px solid var(--tiffany-blue);">
-                        <h3 style="font-size: 20px; margin-bottom: 10px;"><i class="fa-solid fa-dog"></i> Animal Bite Treatment</h3>
-                        <div class="highlight-item"><span class="highlight-label">PVRV (Anti-Rabies)</span> <span class="highlight-value">5,000 vials</span></div>
-                        <div class="highlight-item"><span class="highlight-label">Equine Immunoglobulin</span> <span class="highlight-value">1,000 vials</span></div>
-                    </div>
+                <div class="data-card" style="padding: 20px;">
+                    <table style="font-size: 14px;">
+                        <tbody>
+                            <tr>
+                                <td>Oral Health Program</td>
+                                <td><strong>₱ 2.19 M</strong></td>
+                            </tr>
+                            <tr>
+                                <td>Maternal, FP & STI Prevention</td>
+                                <td><strong>₱ 1.69 M</strong></td>
+                            </tr>
+                            <tr>
+                                <td>Health Infra, ICT & Disaster</td>
+                                <td><strong>₱ 2.45 M</strong></td>
+                            </tr>
+                            <tr>
+                                <td>Others / Maintenance & Operations</td>
+                                <td><strong>₱ 15.39 M</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
 
-        <div class="slide" id="slide-4">
-            <h2 class="slide-title">Priority 3: Oral Health Programs</h2>
-            <div class="content-grid">
-                <div style="padding-top: 20px;">
-                    <p>To promote early intervention and preventative dental care, the AOP outlines the widespread distribution of complete dental kits to children and adults in the community.</p>
-                    <p style="margin-top: 20px;">We are also proposing the upgrade of clinical equipment to ensure our dentists can provide safe, sterile, and effective ambulatory care.</p>
-                    
-                    <div style="margin-top: 30px; background: rgba(255, 209, 220, 0.3); padding: 20px; border-radius: 8px;">
-                        <p style="margin: 0; font-weight: 600;"><i class="fa-solid fa-award" style="color: var(--pink-dark);"></i> Province-wide Awarding of 900 Orally Fit Children</p>
-                    </div>
-                </div>
-                <div class="data-card">
-                    <h3><i class="fa-solid fa-tooth"></i> 2027 Dental Targets</h3>
-                    <div class="highlight-item"><span class="highlight-label">Kid's Dental Kits</span> <span class="highlight-value">4,500 kits</span></div>
-                    <div class="highlight-item"><span class="highlight-label">Adult Dental Kits</span> <span class="highlight-value">4,500 kits</span></div>
-                    <div class="highlight-item"><span class="highlight-label">Pits & Fissure Sealants</span> <span class="highlight-value">210 units</span></div>
-                    <div class="highlight-item"><span class="highlight-label">Autoclave Sterilizer</span> <span class="highlight-value">1 unit</span></div>
-                    <div class="highlight-item"><span class="highlight-label">Ultrasonic Scalers</span> <span class="highlight-value">2 units</span></div>
-                    <div class="highlight-item"><span class="highlight-label">Surgical Forcep Sets</span> <span class="highlight-value">2 sets</span></div>
-                </div>
-            </div>
-        </div>
-
-        <div class="slide" id="slide-5">
-            <h2 class="slide-title">Priority 4: Family Planning & STI Prev.</h2>
-            <div class="content-grid">
-                <div class="data-card">
-                    <h3><i class="fa-solid fa-person-breastfeeding"></i> 2027 FP & STI Targets</h3>
-                    <div class="highlight-item"><span class="highlight-label">DMPA Injectables</span> <span class="highlight-value">10,000 doses</span></div>
-                    <div class="highlight-item"><span class="highlight-label">COC & POP Pills</span> <span class="highlight-value">13,000 cycles</span></div>
-                    <div class="highlight-item"><span class="highlight-label">Male Condoms</span> <span class="highlight-value">10,000 pcs</span></div>
-                    <div class="highlight-item"><span class="highlight-label">IUDs & Subdermal Implants</span> <span class="highlight-value">2,000 units</span></div>
-                    <div class="highlight-item"><span class="highlight-label">Lubricants</span> <span class="highlight-value">3,000 pcs</span></div>
-                    <div class="highlight-item"><span class="highlight-label">HIV & Syphilis Test Kits</span> <span class="highlight-value">1,200 kits</span></div>
-                </div>
-                <div style="padding-top: 20px;">
-                    <p>Empowering maternal health and reproductive choices through accessible outreach missions. The plan ensures a consistent supply of short and long-acting reversible contraceptives.</p>
-                    <p style="margin-top: 20px;">Furthermore, robust investments are allocated for STI testing and diagnostics to maintain high surveillance capabilities.</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="slide" id="slide-6">
-            <h2 class="slide-title">Priority 5: Disease Control & Prevention</h2>
-            <div class="content-grid">
-                <div style="padding-top: 20px;">
-                    <p>Continuous aggressive actions against communicable diseases. The 2027 AOP focuses on active case finding and community-wide awareness.</p>
-                    
-                    <div class="data-card" style="margin-top: 30px; padding: 20px; border-top: 5px solid var(--tiffany-blue);">
-                        <h3 style="font-size: 20px; margin-bottom: 10px;"><i class="fa-solid fa-mosquito"></i> Vector-Borne Diseases</h3>
-                        <p style="font-size: 16px; margin: 0;">Sustaining the <strong>Zero-Malaria</strong> initiative and supporting <strong>Dengue Awareness</strong> in schools with larvicides and treated bednets.</p>
-                    </div>
-                </div>
-                <div class="data-card">
-                    <h3><i class="fa-solid fa-lungs-virus"></i> Tuberculosis Targets</h3>
-                    <div class="highlight-item" style="border-bottom: none; padding-bottom: 0;">
-                        <span class="highlight-label" style="color: var(--text-dark); font-weight: bold;">Active Case Finding (Mobile X-Ray):</span>
-                    </div>
-                    <div class="highlight-item" style="padding-top: 5px;">
-                        <span class="highlight-label">Presumptive Patients Target</span> <span class="highlight-value" style="color: var(--tiffany-dark);">500 pax</span>
-                    </div>
-                    
-                    <div class="highlight-item" style="border-bottom: none; padding-bottom: 0; margin-top: 15px;">
-                        <span class="highlight-label" style="color: var(--text-dark); font-weight: bold;">Medical Intervention:</span>
-                    </div>
-                    <div class="highlight-item" style="padding-top: 5px;">
-                        <span class="highlight-label">TB Management Kits</span> <span class="highlight-value" style="color: var(--pink-dark);">1,000 kits</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="slide" id="slide-7">
-            <h2 class="slide-title">Priority 6: Frontliners & Infrastructure</h2>
-            <div class="content-grid">
-                <div class="data-card">
-                    <h3><i class="fa-solid fa-user-nurse"></i> Workforce Welfare</h3>
-                    <p style="font-weight: bold; color: var(--pink-dark); font-size: 22px; text-align: center; margin: 20px 0;">100% Provision of SSS & PhilHealth</p>
-                    <p style="text-align: center; font-size: 16px; color: var(--text-muted);">For all BHWs, BNS, and Job Orders.</p>
-                    
-                    <p style="font-weight: bold; margin-top: 30px; margin-bottom: 10px;">Proposed Hiring:</p>
-                    <ul style="font-size: 16px;">
-                        <li>1 Dentist IV & 1 Dental Admin</li>
-                        <li>3 Medical Officers & 3 Nurses</li>
-                        <li>2 Midwives & 1 MedTech</li>
-                    </ul>
-                </div>
-                <div class="data-card">
-                    <h3><i class="fa-solid fa-building-shield"></i> Facility Upgrades</h3>
-                    <p style="margin-bottom: 20px;"><strong>Logistics Upgrade:</strong> Renovation of the Angono Logistics and Supply Management Unit.</p>
-                    <p style="margin-bottom: 20px;"><strong>ICT Modernization:</strong> Procurement of 5 Desktop Computers for our Barangays and Super Health Center for electronic medical records.</p>
-                    <p><strong>Disaster Resilience:</strong> Equipping the Evacuation Center with necessary machinery (Generator, AC, Go Bags).</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="slide" id="slide-8">
-            <h2 class="slide-title">2027 Proposed Budgetary Requirements</h2>
-            <table class="budget-table">
-                <thead>
-                    <tr>
-                        <th style="width: 75%;">Health Program / Category</th>
-                        <th style="text-align: right;">Funding Requirement</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1. Essential Medicines & NCD Commodities</td>
-                        <td class="amount">₱ 13,874,000.00</td>
-                    </tr>
-                    <tr>
-                        <td>2. Expanded Program on Immunization (EPI)</td>
-                        <td class="amount">₱ 46,742,000.00</td>
-                    </tr>
-                    <tr>
-                        <td>3. Oral Health Program & Preventative Care</td>
-                        <td class="amount">₱ 2,192,550.00</td>
-                    </tr>
-                    <tr>
-                        <td>4. Maternal, Family Planning & STI Control</td>
-                        <td class="amount">₱ 1,691,600.00</td>
-                    </tr>
-                    <tr>
-                        <td>5. Disease Surveillance & Prevention (TB, Dengue, Rabies)</td>
-                        <td class="amount">₱ 13,385,000.00</td>
-                    </tr>
-                    <tr>
-                        <td>6. Human Resources for Health & Worker Welfare</td>
-                        <td class="amount">₱ 12,093,250.00</td>
-                    </tr>
-                    <tr>
-                        <td>7. Health Infrastructure, ICT & Resilience Equipment</td>
-                        <td class="amount">₱ 4,115,000.00</td>
-                    </tr>
-                    <tr>
-                        <td>8. Capacity Building, Programs & Operations</td>
-                        <td class="amount">₱ 11,235,600.00</td>
-                    </tr>
-                    <tr class="total-row">
-                        <td>TOTAL PROPOSED BUDGET FOR CY 2027</td>
-                        <td class="amount">₱ 105,329,000.00</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <div class="slide title-slide" id="slide-9">
-            <h1 style="font-size: 55px; color: var(--tiffany-dark); margin-bottom: 20px;">Ready for Endorsement</h1>
-            <p style="font-size: 24px; margin-bottom: 30px; max-width: 800px; margin-left: auto; margin-right: auto;">
-                This proposed ₱105.3M budget guarantees that our health centers are fully equipped, our frontliners are protected, and every Angoneño has access to essential care by 2027.
-            </p>
-            <div style="width: 100px; height: 4px; background-color: var(--pastel-pink); margin: 30px auto;"></div>
-            <p style="font-weight: 700; font-size: 28px; color: var(--text-dark); text-transform: uppercase;">
-                Requesting the Local Health Board's Approval<br>and Formal Resolution
-            </p>
-        </div>
-
-        <div class="progress-indicator">Slide <span id="current-page">1</span> of 9</div>
-        <div class="controls">
-            <button class="btn" id="prevBtn" disabled><i class="fa-solid fa-chevron-left"></i></button>
-            <button class="btn" id="nextBtn"><i class="fa-solid fa-chevron-right"></i></button>
-        </div>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const slides = document.querySelectorAll('.slide');
-            const prevBtn = document.getElementById('prevBtn');
-            const nextBtn = document.getElementById('nextBtn');
-            const currentPageSpan = document.getElementById('current-page');
-            let currentSlide = 0;
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
 
-            function updateSlides() {
-                slides.forEach((slide, index) => {
-                    if (index === currentSlide) {
-                        slide.classList.add('active');
-                    } else {
-                        slide.classList.remove('active');
-                    }
-                });
+        // Function to handle showing the right slide
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.style.display = i === index ? 'flex' : 'none';
+            });
+        }
 
-                // Update buttons and counter
-                currentPageSpan.textContent = currentSlide + 1;
-                prevBtn.disabled = currentSlide === 0;
-                nextBtn.disabled = currentSlide === slides.length - 1;
+        // Invisible Zones logic
+        function nextSlide() {
+            if (currentSlide < slides.length - 1) {
+                currentSlide++;
+                showSlide(currentSlide);
             }
+        }
 
-            nextBtn.addEventListener('click', () => {
-                if (currentSlide < slides.length - 1) {
-                    currentSlide++;
-                    updateSlides();
-                }
-            });
+        function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                showSlide(currentSlide);
+            }
+        }
 
-            prevBtn.addEventListener('click', () => {
-                if (currentSlide > 0) {
-                    currentSlide--;
-                    updateSlides();
-                }
-            });
-
-            // Add Keyboard Arrow functionality
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'ArrowRight' && currentSlide < slides.length - 1) {
-                    currentSlide++;
-                    updateSlides();
-                } else if (e.key === 'ArrowLeft' && currentSlide > 0) {
-                    currentSlide--;
-                    updateSlides();
-                }
-            });
+        // Keyboard Arrow logic
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'Space') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                prevSlide();
+            }
         });
+
+        // Initialize the first slide
+        showSlide(currentSlide);
     </script>
 </body>
 </html>
