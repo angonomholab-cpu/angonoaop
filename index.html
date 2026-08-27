@@ -4,50 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Angono AOP CY 2027 - Executive Presentation</title>
-    
-    <!-- Google Fonts: Inter for readability, Playfair Display for elegance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap" rel="stylesheet">
-    <!-- FontAwesome for Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <style>
         * {
             box-sizing: border-box;
-            margin: 0;
-            padding: 0;
         }
 
         :root {
-            /* 100% LIGHT PASTEL THEME: Tiffany Blue & Soft Pink */
-            --tiffany-blue: #40E0D0;
-            --tiffany-light: #E0FFFF;
-            --tiffany-dark: #008B8B;
-            
-            --pastel-pink: #FFD1DC;
-            --pastel-pink-light: #FFF0F5;
-            --pink-accent: #FF69B4;
-            
-            --text-dark: #004D40; /* Very dark teal for readable text */
-            --text-muted: #00796B;
-            
-            --glass-bg: rgba(255, 255, 255, 0.85);
-            --glass-border: rgba(255, 255, 255, 0.5);
-            --glass-shadow: 0 8px 32px 0 rgba(64, 224, 208, 0.15);
+            /* 100% LIGHT PASTEL THEME */
+            --primary-teal: #0d9488; /* Elegant deep teal for readable text */
+            --tiffany-blue: #5eead4; /* Pastel Tiffany Blue */
+            --accent-rose: #f43f5e; /* Bright rose for highlights/icons */
+            --soft-blush: #fdf2f8; /* Very light pink for backgrounds */
+            --border-blush: #fbcfe8; /* Soft pink for borders */
+            --text-dark: #334155; /* Slate for readability */
+            --text-muted: #64748b;
         }
 
         body {
-            background: linear-gradient(135deg, var(--pastel-pink-light) 0%, var(--tiffany-light) 100%);
+            /* Soft Animated Gradient Background (Pink to Tiffany) */
+            background: linear-gradient(-45deg, #fce7f3, #e0f2fe, #ccfbf1, #fbcfe8);
             background-size: 400% 400%;
             animation: gradientBG 15s ease infinite;
-            font-family: 'Inter', sans-serif;
-            height: 100vh;
-            width: 100vw;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: grid;
+            gap: 20px;
+            grid-template-columns: 1fr;
+            margin: 0;
+            min-height: 100vh;
+            padding: 20px 0;
+            place-items: center;
+            overflow-x: hidden;
         }
 
         @keyframes gradientBG {
@@ -56,676 +46,572 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* Presentation Container */
-        .presentation-container {
-            width: 1280px;
-            height: 720px;
-            position: relative;
-            background: transparent;
-            overflow: hidden;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
-            border-radius: 16px;
-        }
-
-        /* Individual Slides */
-        .slide {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
-            padding: 50px;
-        }
-
-        .slide.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        /* --- FLOATING TITLE (DASHBOARD STYLE) --- */
-        .floating-title-container {
-            width: 100%;
-            display: flex;
-            justify-content: flex-start;
-            margin-bottom: 25px;
-            transform: translateY(-30px);
-            opacity: 0;
-            transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
-            transition-delay: 0.1s;
-        }
-
-        .slide.active .floating-title-container {
-            transform: translateY(0);
-            opacity: 1;
-        }
-
-        .floating-title {
-            background: var(--tiffany-blue);
-            color: #ffffff;
-            padding: 15px 40px;
-            border-radius: 50px;
-            font-family: 'Playfair Display', serif;
-            font-size: 32px;
-            font-weight: 700;
-            box-shadow: 0 10px 20px rgba(64, 224, 208, 0.3);
-            border: 2px solid #ffffff;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-        }
-
-        /* --- GLASSMORPHISM DATA CARD --- */
-        .glass-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-radius: 20px;
-            border: 1px solid var(--glass-border);
-            box-shadow: var(--glass-shadow);
-            width: 100%;
-            flex-grow: 1;
-            padding: 40px;
-            display: flex;
-            flex-direction: column;
-            transform: translateY(30px);
-            opacity: 0;
-            transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
-            transition-delay: 0.3s;
-        }
-
-        .slide.active .glass-card {
-            transform: translateY(0);
-            opacity: 1;
-        }
-
-        .card-description {
-            font-size: 20px;
-            color: var(--text-muted);
-            margin-bottom: 25px;
-            font-style: italic;
-            border-left: 4px solid var(--pink-accent);
-            padding-left: 15px;
-            font-weight: 500;
-        }
-
-        /* --- TITLE PAGE STYLES --- */
-        .title-page-content {
-            text-align: center;
-            background: var(--glass-bg);
-            padding: 60px;
-            border-radius: 24px;
-            box-shadow: var(--glass-shadow);
-            border: 1px solid #ffffff;
-            width: 900px;
-            transform: scale(0.95);
-            transition: all 0.5s ease;
-        }
-
-        .slide.active .title-page-content {
-            transform: scale(1);
-        }
-
-        .logo-container {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            margin-bottom: 30px;
-        }
-
-        .logo-container img {
-            width: 130px;
-            height: 130px;
-            object-fit: contain;
-            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1));
-            transition: transform 0.3s ease;
-        }
-
-        .logo-container img:hover {
-            transform: translateY(-10px) scale(1.05);
-        }
-
-        .title-page-content h3 {
-            color: var(--pink-accent);
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            font-size: 18px;
+        p {
+            margin: 0;
             margin-bottom: 15px;
         }
 
-        .title-page-content h1 {
-            color: var(--text-dark);
-            font-family: 'Playfair Display', serif;
-            font-size: 70px;
-            line-height: 1.1;
-            margin-bottom: 25px;
-        }
-
-        .title-page-content hr {
-            width: 100px;
-            height: 4px;
-            background-color: var(--tiffany-blue);
-            border: none;
-            margin: 0 auto 25px auto;
-            border-radius: 2px;
-        }
-
-        /* --- SLIDE 2: WIDESCREEN SCROLLING SHEET --- */
-        .scrolling-wrapper {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+        .slide-container {
+            align-items: center;
+            /* Glassmorphism Effect for the Main Canvas */
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 15px 35px rgba(13, 148, 136, 0.1); 
+            display: none; /* Hide all by default for JS navigation */
+            flex-direction: column;
+            font-family: 'Inter', sans-serif;
+            font-weight: 300;
+            height: 720px;
+            justify-content: center;
             overflow: hidden;
-            z-index: -1;
-            border-radius: 16px;
-        }
-
-        .scrolling-iframe {
-            /* MADE WIDER: 180% width forces Google Sheets to show price columns */
-            width: 180%; 
-            height: 300%;
-            transform-origin: top left;
-            /* SCALE DOWN: Fits the 180% width into the normal screen */
-            transform: scale(0.56); 
-            pointer-events: none;
-            border: none;
-            /* FASTER SCROLL: Reduced to 35 seconds */
-            animation: autoScroll 35s alternate infinite ease-in-out;
-        }
-
-        @keyframes autoScroll {
-            0% { transform: scale(0.56) translateY(0); }
-            100% { transform: scale(0.56) translateY(-25%); } 
-        }
-
-        .sheet-overlay {
-            background: linear-gradient(to bottom, rgba(255,240,245,0.7) 0%, rgba(224,255,255,0.95) 100%);
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-        }
-
-        .slide-2-card {
-            position: absolute;
-            bottom: 50px;
-            background: var(--glass-bg);
-            padding: 30px;
-            border-radius: 16px;
-            border-left: 6px solid var(--tiffany-blue);
-            width: 80%;
-            text-align: center;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-            z-index: 2;
+            padding: 60px;
+            position: relative;
+            width: 1280px;
         }
         
-        .slide-2-card h2 { color: var(--text-dark); font-family: 'Playfair Display', serif; font-size: 32px; margin-bottom: 10px;}
-        .slide-2-card p { color: var(--text-muted); font-size: 22px; font-weight: 500;}
+        .slide-container.active {
+            display: flex; /* Only show active slide */
+        }
 
-
-        /* --- DYNAMIC LAYOUTS --- */
-        
-        /* Layout: Split Content */
-        .layout-split {
+        /* --- LOGO STYLES (Thumbnail Hack) --- */
+        .logo-row {
             display: flex;
             gap: 40px;
-            height: 100%;
-            align-items: center;
+            justify-content: center;
+            margin-bottom: 30px;
+            width: 100%;
         }
-        .layout-split .text-side { flex: 1; }
-        .layout-split .image-side { 
-            flex: 1; 
-            background: var(--tiffany-light);
-            border-radius: 16px;
-            height: 100%;
+
+        .logo-badge {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            background-color: #ffffff;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            border: 4px solid var(--tiffany-blue);
+            overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 100px;
-            color: var(--tiffany-blue);
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.05);
-            border: 2px dashed var(--tiffany-blue);
         }
 
-        /* Layout: Big Numbers (Immunization) */
-        .layout-numbers {
-            display: flex;
-            gap: 30px;
-            align-items: center;
+        .logo-badge img {
+            width: 90%;
+            height: 90%;
+            object-fit: contain;
         }
-        .number-box {
-            background: #ffffff;
-            border: 2px solid var(--pastel-pink);
-            padding: 30px;
-            border-radius: 16px;
-            text-align: center;
-            min-width: 350px;
-            box-shadow: 0 10px 20px rgba(255, 105, 180, 0.1);
-        }
-        .number-box .big-num { font-size: 90px; font-weight: 800; color: var(--pink-accent); line-height: 1; margin-bottom: 10px; font-family: 'Playfair Display', serif;}
-        .number-box .num-label { font-size: 22px; color: var(--text-dark); font-weight: 700; text-transform: uppercase; }
-        
-        .bullets { list-style: none; padding: 0; }
-        .bullets li { font-size: 22px; margin-bottom: 15px; padding-left: 35px; position: relative; color: var(--text-dark); font-weight: 500;}
-        .bullets li::before { content: '\f00c'; font-family: 'FontAwesome'; position: absolute; left: 0; color: var(--tiffany-dark); }
 
-        /* Layout: Grid Tables (Medicines / Budget) */
-        .data-table {
-            width: 100%;
-            border-collapse: separate;
-            border-spacing: 0 10px;
-        }
-        .data-table th { background: var(--tiffany-blue); color: white; padding: 15px 20px; font-size: 18px; text-transform: uppercase; border-radius: 8px; text-align: left;}
-        .data-table td { background: #ffffff; padding: 15px 20px; font-size: 20px; color: var(--text-dark); border-bottom: 2px solid var(--tiffany-light);}
-        .data-table td strong { color: var(--pink-accent); font-size: 24px;}
-        
-        .budget-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px 30px;
-            width: 100%;
-        }
-        .budget-item {
-            background: #ffffff;
-            padding: 15px 20px;
-            border-radius: 8px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-left: 5px solid var(--pastel-pink);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
-        }
-        .budget-item span:first-child { font-weight: 600; color: var(--text-dark); font-size: 18px;}
-        .budget-item span:last-child { font-weight: 800; color: var(--tiffany-dark); font-size: 22px; font-family: monospace;}
-        
-        .budget-total {
-            grid-column: 1 / -1;
-            background: var(--tiffany-blue);
-            color: #ffffff;
-            padding: 20px 30px;
-            border-radius: 12px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 15px;
-            box-shadow: 0 10px 20px rgba(64, 224, 208, 0.4);
-        }
-        .budget-total span:first-child { font-size: 26px; font-weight: 700; text-transform: uppercase;}
-        .budget-total span:last-child { font-size: 38px; font-weight: 800; color: #ffffff;}
-
-        /* Layout: Data Tiles (Disease Control) */
-        .tile-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-            width: 100%;
-            height: 100%;
-        }
-        .data-tile {
-            background: #ffffff;
-            border-radius: 16px;
-            padding: 40px 30px;
-            text-align: center;
-            border-top: 6px solid var(--tiffany-blue);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-            transition: transform 0.3s ease;
-        }
-        .data-tile:hover { transform: translateY(-10px); }
-        .data-tile i { font-size: 55px; color: var(--pink-accent); margin-bottom: 20px; }
-        .data-tile h3 { font-size: 26px; color: var(--text-dark); margin-bottom: 15px; font-family: 'Playfair Display', serif;}
-        .data-tile p { font-size: 18px; color: var(--text-muted); line-height: 1.6;}
-
-        /* --- LAST PAGE STYLES --- */
-        .last-page-card {
-            text-align: center;
-            background: var(--glass-bg);
-            padding: 60px;
-            border-radius: 24px;
-            box-shadow: var(--glass-shadow);
+        /* --- FLOATING TITLE (DASHBOARD PILL) --- */
+        .floating-title {
+            background-color: var(--soft-blush);
             border: 2px solid var(--tiffany-blue);
-            width: 900px;
+            border-radius: 50px;
+            padding: 15px 50px;
+            box-shadow: 0 10px 25px rgba(94, 234, 212, 0.4);
+            margin-bottom: 30px;
+            z-index: 10;
+            display: inline-block;
+            text-align: center;
         }
-        .last-page-card h1 {
-            color: var(--pink-accent);
+
+        .floating-title h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 38px;
+            font-weight: 700;
+            color: var(--primary-teal);
+            margin: 0;
+            letter-spacing: 0.5px;
+        }
+
+        /* --- GLASS CONTENT CARD --- */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            padding: 40px;
+            width: 100%;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* --- TYPOGRAPHY --- */
+        .slide-container h1, .slide-container h3 { color: var(--primary-teal); margin: 0; }
+        
+        .slide-container h1 {
             font-family: 'Playfair Display', serif;
             font-size: 65px;
-            margin-bottom: 20px;
-        }
-        .last-page-card p {
-            font-size: 24px;
-            color: var(--text-dark);
-            margin-bottom: 30px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            line-height: 1.1;
         }
 
-        /* Invisible Click Zones */
-        .click-zone-left { position: absolute; left: 0; top: 0; width: 50%; height: 100%; z-index: 10; cursor: w-resize; }
-        .click-zone-right { position: absolute; right: 0; top: 0; width: 50%; height: 100%; z-index: 10; cursor: e-resize; }
+        .slide-container h3 { font-size: 26px; font-weight: 600; margin-bottom: 15px; letter-spacing: -0.5px; }
+        
+        .slide-container p, .slide-container li, .slide-container th, .slide-container td {
+            color: var(--text-dark);
+            font-family: 'Inter', sans-serif;
+            font-size: 20px;
+            line-height: 1.6;
+        }
+
+        .slide-container .subtitle { font-size: 24px; font-weight: 400; margin: 20px auto; color: var(--text-muted); font-style: italic; font-family: 'Playfair Display', serif; }
+        .title-layout { text-align: center; max-width: 900px; z-index: 10; }
+        .title-layout hr { background-color: var(--tiffany-blue); border: none; height: 4px; margin: 30px auto; width: 100px; border-radius: 2px; }
+
+        /* --- SLIDE 2: LIVE SPREADSHEET TRICK --- */
+        .sheet-scaler {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 300%;  /* Make it 3x wider to capture columns until price */
+            height: 300%; 
+            transform: scale(0.3333); /* Shrink it to fit perfectly */
+            transform-origin: top left;
+            pointer-events: none; /* Prevents clicks from being trapped inside excel */
+            z-index: 0;
+            opacity: 0.85; /* Slightly faded so it looks like a background */
+        }
+
+        .sheet-scroller {
+            width: 100%;
+            height: 200%; /* Double height so it has room to scroll */
+            /* FAST SCROLL ANIMATION (12 Seconds) */
+            animation: fastScroll 12s linear infinite alternate;
+        }
+
+        .sheet-scroller iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        @keyframes fastScroll {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-50%); } /* Scrolls down extremely fast */
+        }
+
+        .sheet-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.1), rgba(255,255,255,0.7));
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* --- LAYOUTS --- */
+        .two-column { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; width: 100%; align-items: center; }
+        .two-column ul { list-style: none; margin: 0; padding: 0; }
+        .two-column li { margin-bottom: 15px; padding-left: 30px; position: relative; }
+        .two-column li::before { content: '\f105'; font-family: 'FontAwesome'; color: var(--accent-rose); position: absolute; left: 0; font-weight: 900; }
+
+        /* Images */
+        .image-wrapper { border-radius: 12px; height: 400px; max-width: 100%; overflow: hidden; width: 100%; background-color: var(--soft-blush); border: 4px solid #ffffff; box-shadow: 0 10px 20px rgba(13, 148, 136, 0.1); }
+        .image-wrapper img { height: 100%; width: 100%; object-fit: cover; }
+        .rounded-image-layout .image-wrapper { border-radius: 50%; height: 400px; width: 400px; max-width: 400px; margin: 0 auto; }
+
+        /* Tiles */
+        .tiled-content { display: flex; gap: 30px; justify-content: center; width: 100%; }
+        .tile { align-items: center; background-color: #ffffff; border-radius: 12px; border: 1px solid var(--border-blush); box-shadow: 0 4px 15px rgba(244, 63, 94, 0.05); display: flex; flex-direction: column; flex: 1; padding: 30px 20px; text-align: center; }
+        .tile .icon { color: var(--accent-rose); font-size: 48px; margin-bottom: 20px; }
+
+        /* Tables */
+        .table-layout { width: 100%; }
+        .table-layout table { border-collapse: separate; border-spacing: 0; width: 100%; border-radius: 8px; overflow: hidden; border: 1px solid var(--tiffany-blue); }
+        .table-layout th, .table-layout td { border-bottom: 1px solid var(--border-blush); padding: 14px 20px; text-align: left; }
+        .table-layout th { background-color: var(--tiffany-blue); color: #ffffff; font-size: 18px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+        .table-layout td strong { color: var(--accent-rose); font-weight: 700; font-size: 22px; }
+
+        /* Budget Specific Table */
+        .budget-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 40px; width: 100%; margin-bottom: 20px;}
+        .budget-item { background: var(--soft-blush); padding: 12px 20px; border-radius: 8px; border-left: 4px solid var(--tiffany-blue); display: flex; justify-content: space-between; align-items: center;}
+        .budget-item span:first-child { font-weight: 500; font-size: 16px; color: var(--text-dark); max-width: 65%; line-height: 1.3;}
+        .budget-item span:last-child { font-weight: 700; font-size: 20px; color: var(--accent-rose); font-family: monospace;}
+        .budget-total { background: var(--primary-teal); color: white; padding: 20px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; width: 100%; margin-top: 10px; box-shadow: 0 10px 20px rgba(13,148,136, 0.2);}
+        .budget-total span:first-child { font-size: 24px; font-weight: 700; text-transform: uppercase;}
+        .budget-total span:last-child { font-size: 32px; font-weight: 700; color: var(--tiffany-blue); font-family: monospace;}
+
+        /* Big Numbers */
+        .highlight-numbers-layout > div:first-child { flex: 0 0 45%; text-align: center; border-right: 1px solid var(--tiffany-blue); padding-right: 30px; }
+        .highlight-numbers-layout .number { color: var(--primary-teal); font-size: 110px; font-weight: 700; font-family: 'Playfair Display', serif; line-height: 1; margin-bottom: 15px; }
+        .highlight-numbers-layout .number-label { font-size: 20px; font-weight: 600; color: var(--accent-rose); margin-bottom: 30px; text-transform: uppercase; letter-spacing: 1px; }
+        
+        .data-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px; }
+        .data-grid-item { background: var(--soft-blush); padding: 15px 20px; border-radius: 8px; border-left: 4px solid var(--accent-rose); }
+        .data-grid-item strong { display: block; font-size: 26px; color: var(--primary-teal); }
+        .data-grid-item span { font-size: 14px; color: var(--text-muted); text-transform: uppercase; font-weight: 600; }
+
+        /* Full Background (Last Page) */
+        .full-bg-image { background-color: var(--tiffany-blue); display: flex; flex-direction: column; align-items: center; justify-content: center;}
+        .content-overlay { text-align: center; background: rgba(255, 255, 255, 0.95); padding: 60px; border-radius: 12px; max-width: 900px; box-shadow: 0 20px 40px rgba(13, 148, 136, 0.15); border: 2px solid var(--border-blush); z-index: 10;}
+        .full-bg-image h2 { font-family: 'Playfair Display', serif; font-size: 55px; margin-bottom: 20px; color: var(--primary-teal); }
+
+        /* --- INEME ANIMATIONS --- */
+        .slide-container.active .floating-title { animation: bounceDown 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+        .slide-container.active .glass-card { animation: slideUpFade 0.8s ease-out forwards; animation-delay: 0.2s; opacity: 0; transform: translateY(30px); }
+        .slide-container.active .title-layout { animation: fadeIn 1s ease-out forwards; }
+        
+        @keyframes bounceDown { 0% { opacity: 0; transform: translateY(-50px); } 100% { opacity: 1; transform: translateY(0); } }
+        @keyframes slideUpFade { 0% { opacity: 0; transform: translateY(30px); } 100% { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { 0% { opacity: 0; } 100% { opacity: 1; } }
+
+        /* Hidden Navigation Overlay (Click left/right to change slides) */
+        .nav-overlay-left, .nav-overlay-right { position: absolute; top: 0; bottom: 0; width: 15%; z-index: 999; cursor: pointer; }
+        .nav-overlay-left { left: 0; }
+        .nav-overlay-right { right: 0; }
     </style>
 </head>
 <body>
 
-    <div class="presentation-container">
+    <!-- Slide 1: Title Slide with Logos -->
+    <div class="slide-container active" id="slide1">
+        <div class="nav-overlay-right" onclick="nextSlide()"></div>
         
-        <!-- Invisible controls -->
-        <div class="click-zone-left" onclick="prevSlide()"></div>
-        <div class="click-zone-right" onclick="nextSlide()"></div>
-
-        <!-- SLIDE 1: TITLE PAGE (With perfectly working logos via thumbnail hack) -->
-        <div class="slide active" id="slide1">
-            <div class="title-page-content">
-                <div class="logo-container">
-                    <!-- Thumbnail Hack Applied to Bypass Google Drive Security -->
-                    <img src="https://drive.google.com/thumbnail?id=1ajzYBo8BILP7xmVycYuent0WMF4iI2PG&sz=w500" alt="DOH Logo">
-                    <img src="https://drive.google.com/thumbnail?id=1ZX23SKg3CAe8JYPoaJbF5HHCT4UUZjQG&sz=w500" alt="Angono Logo">
-                    <img src="https://drive.google.com/thumbnail?id=1BqWTCHhIrJXMNDC4juCEC8FmxWtC3iBs&sz=w500" alt="MHO Logo">
+        <div class="title-layout">
+            <!-- LOGOS (Using Thumbnail Hack) -->
+            <div class="logo-row">
+                <!-- DOH Logo -->
+                <div class="logo-badge">
+                    <img src="https://drive.google.com/thumbnail?id=1ajzYBo8BILP7xmVycYuent0WMF4iI2PG&sz=w500" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Department_of_Health_%28DOH%29_-_Philippines_seal.svg/1024px-Department_of_Health_%28DOH%29_-_Philippines_seal.svg.png'" alt="DOH">
                 </div>
-                <h3>Municipality of Angono</h3>
-                <h1>Annual Operational Plan<br>CY 2027</h1>
-                <hr>
-                <p style="font-size: 22px; color: var(--text-muted); font-style: italic; font-family: 'Playfair Display', serif;">Executive Summary & Proposed Budgetary Targets</p>
-                <p style="margin-top: 30px; font-weight: 600; color: var(--text-dark); letter-spacing: 1px;">Presented to the Local Health Board • September 11, 2026</p>
+                <!-- Angono Logo -->
+                <div class="logo-badge" style="width: 150px; height: 150px; border-color: var(--accent-rose);">
+                    <img src="https://drive.google.com/thumbnail?id=1ZX23SKg3CAe8JYPoaJbF5HHCT4UUZjQG&sz=w500" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Angono_Rizal_seal.png/600px-Angono_Rizal_seal.png'" alt="Angono LGU">
+                </div>
+                <!-- MHO Logo -->
+                <div class="logo-badge">
+                    <img src="https://drive.google.com/thumbnail?id=1BqWTCHhIrJXMNDC4juCEC8FmxWtC3iBs&sz=w500" onerror="this.style.display='none'" alt="MHO Angono">
+                </div>
+            </div>
+
+            <h3 style="color: var(--accent-rose); font-family: 'Inter'; text-transform: uppercase; font-size: 16px; letter-spacing: 3px;">Municipality of Angono</h3>
+            <h1>Annual Operational Plan<br>CY 2027</h1>
+            <hr>
+            <p class="subtitle">Executive Summary & Proposed Budgetary Targets</p>
+            <p style="margin-top: 40px; font-weight: 500; color: var(--primary-teal); text-transform: uppercase; letter-spacing: 1px; font-size: 14px;">Presented to the Local Health Board<br>September 11, 2026</p>
+        </div>
+    </div>
+
+    <!-- Slide 2: FAST Scrolling Google Sheet Background -->
+    <div class="slide-container" id="slide2">
+        <div class="nav-overlay-left" onclick="prevSlide()"></div>
+        <div class="nav-overlay-right" onclick="nextSlide()"></div>
+        
+        <!-- The Background Live Sheet -->
+        <div class="sheet-scaler">
+            <div class="sheet-scroller">
+                <!-- Using htmlembed with specific GID for AOP Form Tab -->
+                <iframe src="https://docs.google.com/spreadsheets/d/1Tgbv7hq7Di3Bvk0zEvbjMG8hIk8CzoiJ/htmlembed?gid=1650668742&single=true&widget=false&chrome=false&headers=false"></iframe>
             </div>
         </div>
+        <div class="sheet-overlay"></div>
 
-        <!-- SLIDE 2: WIDESCREEN SCROLLING EXCEL SHEET (The "Why Summarize" Slide) -->
-        <div class="slide" id="slide2">
-            <!-- The wide iframe container -->
-            <div class="scrolling-wrapper">
-                <iframe class="scrolling-iframe" src="https://docs.google.com/spreadsheets/d/1Tgbv7hq7Di3Bvk0zEvbjMG8hIk8CzoiJ/edit?widget=true&headers=false"></iframe>
-                <div class="sheet-overlay"></div>
-            </div>
-            
-            <div class="floating-title-container" style="justify-content: center; transform: translateY(0); margin-top: 40px; position: absolute; top:0; z-index: 3;">
-                <div class="floating-title">The Complete AOP Document</div>
-            </div>
-            
-            <!-- Explanatory banner at the bottom so it doesn't block the scrolling sheet -->
-            <div class="slide-2-card">
-                <h2>Why are we summarizing this today?</h2>
-                <p>Ang buong AOP po ay napakahaba at naglalaman ng 3-year targets.<br>Para mas maging mabilis at produktibo ang ating pag-uusap ngayon, ang ipapakita ko na lamang po ay ang mga <strong>pinaka-importanteng priority targets para lamang sa taong 2027.</strong></p>
-            </div>
+        <!-- The Floating Pill Title -->
+        <div class="floating-title" style="margin-top: auto; margin-bottom: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.2);">
+            <h2>AOP 2027: Prioritized Summary</h2>
         </div>
+    </div>
 
-        <!-- SLIDE 3: ESSENTIAL MEDICINES (Table Layout) -->
-        <div class="slide" id="slide3">
-            <div class="floating-title-container">
-                <div class="floating-title">Priority 1: NCD & Essential Medicines</div>
-            </div>
-            <div class="glass-card">
-                <p class="card-description">Strategic provision of maintenance commodities and vital antibiotics to address Lifestyle-Related Diseases in the community.</p>
-                <table class="data-table">
+    <!-- Slide 3: Essential Medicines -->
+    <div class="slide-container" id="slide3">
+        <div class="nav-overlay-left" onclick="prevSlide()"></div>
+        <div class="nav-overlay-right" onclick="nextSlide()"></div>
+        
+        <div class="floating-title">
+            <h2>Priority 1: Essential Medicines</h2>
+        </div>
+        
+        <div class="glass-card">
+            <p style="font-style: italic; color: var(--text-muted); width: 100%; text-align: left; font-size: 16px; margin-bottom: 20px;">*Strategic procurement targeting primary care, wound management, and NCD maintenance.</p>
+            <div class="table-layout">
+                <table>
                     <thead>
                         <tr>
                             <th>Commodity / Medicine Category</th>
-                            <th style="text-align: right;">2027 Target Procurement</th>
+                            <th>2027 Target Procurement</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>NCD Maintenance Medicines (Hypertension, Diabetes)</td>
-                            <td style="text-align: right;"><strong>29,000+</strong> units</td>
+                            <td>Azithromycin 500mg Tablet</td>
+                            <td><strong>60,000</strong> pcs</td>
                         </tr>
                         <tr>
-                            <td>Azithromycin & Essential Antibiotics</td>
-                            <td style="text-align: right;"><strong>60,000+</strong> pcs</td>
+                            <td>Vitamin B Complex & Ascorbic Acid 500mg (Combined)</td>
+                            <td><strong>30,000</strong> pcs</td>
                         </tr>
                         <tr>
-                            <td>Vitamin B Complex & Ascorbic Acid 500mg</td>
-                            <td style="text-align: right;"><strong>30,000</strong> pcs</td>
+                            <td>Cloxacillin Sodium 250mg Capsule</td>
+                            <td><strong>9,000</strong> pcs</td>
+                        </tr>
+                        <tr>
+                            <td>Cefixime, Metronidazole & Doxycycline</td>
+                            <td><strong>18,000</strong> pcs</td>
                         </tr>
                         <tr>
                             <td>Animal Bite Treatment Commodities</td>
-                            <td style="text-align: right;"><strong>6,000</strong> units</td>
+                            <td><strong>5,000</strong> units</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
-
-        <!-- SLIDE 4: IMMUNIZATION (Big Numbers Layout) -->
-        <div class="slide" id="slide4">
-            <div class="floating-title-container">
-                <div class="floating-title">Priority 2: Expanded Immunization</div>
-            </div>
-            <div class="glass-card">
-                <p class="card-description">Targeted procurement of essential vaccines to guarantee high immunization coverage and strong herd immunity among pediatric demographics.</p>
-                <div class="layout-numbers">
-                    <div class="number-box">
-                        <div class="big-num">14K</div>
-                        <div class="num-label">Doses of PCV10</div>
-                        <hr style="margin: 15px 0; border-top: 1px solid var(--pastel-pink);">
-                        <div style="font-size: 18px; color: var(--text-muted);">Plus 12,000 Doses of<br>Flu Vaccine & PPSV23</div>
-                    </div>
-                    <div style="flex: 1; padding-left: 20px;">
-                        <ul class="bullets">
-                            <li><strong>4,800 doses</strong> of Pentavalent Vaccine</li>
-                            <li><strong>4,800 doses</strong> of MMR Vaccine</li>
-                            <li><strong>4,800 doses</strong> of Japanese Encephalitis (JE)</li>
-                            <li><strong>4,000 doses each</strong> of bOPV & IPV (Polio)</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- SLIDE 5: DENTAL & ORAL HEALTH (Split Layout) -->
-        <div class="slide" id="slide5">
-            <div class="floating-title-container">
-                <div class="floating-title">Priority 3: Oral Health Programs</div>
-            </div>
-            <div class="glass-card">
-                <p class="card-description">Upgrading clinical dental equipment and sustaining preventive oral care for all Angono residents.</p>
-                <div class="layout-split">
-                    <div class="text-side">
-                        <ul class="bullets">
-                            <li>Procurement of <strong>1,500 Kid's Dental Kits</strong> and <strong>1,500 Adult Kits</strong>.</li>
-                            <li>Acquisition of new Autoclave Sterilizers, Ultrasonic Scalers, and Surgical Forcep Sets.</li>
-                            <li>Deployment of 210 units of Pits & Fissure Sealants.</li>
-                            <li>Recognition program for <strong>300 Orally Fit Children</strong>.</li>
-                        </ul>
-                    </div>
-                    <div class="image-side">
-                        <i class="fa-solid fa-tooth"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- SLIDE 6: FAMILY PLANNING (Data Grid) -->
-        <div class="slide" id="slide6">
-            <div class="floating-title-container">
-                <div class="floating-title">Priority 4: Family Planning</div>
-            </div>
-            <div class="glass-card">
-                <p class="card-description">Sustaining robust maternal health and family planning outreach missions through consistent commodity availability.</p>
-                <div class="budget-grid" style="grid-template-columns: 1fr 1fr 1fr;">
-                    <div class="budget-item" style="flex-direction: column; align-items: flex-start;">
-                        <span style="font-size: 16px; color: var(--text-muted); margin-bottom: 5px;">DMPA Doses</span>
-                        <span style="color: var(--pink-accent); font-size: 28px;">10,000</span>
-                    </div>
-                    <div class="budget-item" style="flex-direction: column; align-items: flex-start;">
-                        <span style="font-size: 16px; color: var(--text-muted); margin-bottom: 5px;">COC Pills</span>
-                        <span style="color: var(--pink-accent); font-size: 28px;">8,000</span>
-                    </div>
-                    <div class="budget-item" style="flex-direction: column; align-items: flex-start;">
-                        <span style="font-size: 16px; color: var(--text-muted); margin-bottom: 5px;">POP Pills</span>
-                        <span style="color: var(--pink-accent); font-size: 28px;">5,000</span>
-                    </div>
-                    <div class="budget-item" style="flex-direction: column; align-items: flex-start;">
-                        <span style="font-size: 16px; color: var(--text-muted); margin-bottom: 5px;">IUDs & Implants</span>
-                        <span style="color: var(--pink-accent); font-size: 28px;">1,000</span>
-                    </div>
-                    <div class="budget-item" style="flex-direction: column; align-items: flex-start;">
-                        <span style="font-size: 16px; color: var(--text-muted); margin-bottom: 5px;">Male Condoms</span>
-                        <span style="color: var(--pink-accent); font-size: 28px;">10,000</span>
-                    </div>
-                    <div class="budget-item" style="flex-direction: column; align-items: flex-start;">
-                        <span style="font-size: 16px; color: var(--text-muted); margin-bottom: 5px;">Lubricants (HIV/STI)</span>
-                        <span style="color: var(--pink-accent); font-size: 28px;">3,000</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- SLIDE 7: DISEASE CONTROL (Tiles Layout) -->
-        <div class="slide" id="slide7">
-            <div class="floating-title-container">
-                <div class="floating-title">Priority 5: Disease Control Targets</div>
-            </div>
-            <div class="glass-card" style="background: transparent; border: none; box-shadow: none; padding: 0;">
-                <div class="tile-grid">
-                    <div class="data-tile">
-                        <i class="fa-solid fa-lungs-virus"></i>
-                        <h3>Tuberculosis</h3>
-                        <p>Targeting 500 presumptive patients via active case finding and proposing 1,000 TB Management Kits.</p>
-                    </div>
-                    <div class="data-tile">
-                        <i class="fa-solid fa-mosquito"></i>
-                        <h3>Dengue & Malaria</h3>
-                        <p>Sustaining Dengue awareness campaigns and maintaining Zero-Malaria sustainability initiatives.</p>
-                    </div>
-                    <div class="data-tile">
-                        <i class="fa-solid fa-vial-virus"></i>
-                        <h3>HIV & STI</h3>
-                        <p>Proposing 600 Syphilis and 600 HIV Test Kits, plus HIV Viral Load Point of Care testing.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- SLIDE 8: FRONTLINERS & INFRA (Split Layout) -->
-        <div class="slide" id="slide8">
-            <div class="floating-title-container">
-                <div class="floating-title">Priority 6: Frontliners & Infrastructure</div>
-            </div>
-            <div class="glass-card">
-                <p class="card-description">Empowering our human resources for health and modernizing LGU health facilities for better service delivery.</p>
-                <div class="layout-split">
-                    <div class="image-side" style="color: var(--pink-accent); border-color: var(--pastel-pink); background: var(--pastel-pink-light);">
-                        <i class="fa-solid fa-user-doctor"></i>
-                    </div>
-                    <div class="text-side">
-                        <ul class="bullets">
-                            <li>Providing <strong>100% of BHWs, BNS, and Job Orders</strong> with vital SSS and PhilHealth benefits.</li>
-                            <li>Hiring allocation for 1 Dentist IV, 1 Dental Admin, and 10 new HRH personnel.</li>
-                            <li>Planned renovation of the Angono Logistics & Supply Management Unit.</li>
-                            <li>Acquisition of 5 new ICT Equipment units for EMR interoperability.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- SLIDE 9: PERFECT BUDGET SUMMARY -->
-        <div class="slide" id="slide9">
-            <div class="floating-title-container">
-                <div class="floating-title">CY 2027 Budgetary Requirements</div>
-            </div>
-            <div class="glass-card">
-                <p class="card-description">Comprehensive financial breakdown required to successfully implement the AOP and Universal Health Care targets.</p>
-                
-                <div class="budget-grid">
-                    <div class="budget-item">
-                        <span>1. Essential Medicines & NCDs</span>
-                        <span>₱ 25,000,000.00</span>
-                    </div>
-                    <div class="budget-item">
-                        <span>2. Expanded Immunization (EPI)</span>
-                        <span>₱ 15,000,000.00</span>
-                    </div>
-                    <div class="budget-item">
-                        <span>3. Oral Health & Dental Programs</span>
-                        <span>₱ 5,329,000.00</span>
-                    </div>
-                    <div class="budget-item">
-                        <span>4. Family Planning & Maternal Health</span>
-                        <span>₱ 10,000,000.00</span>
-                    </div>
-                    <div class="budget-item">
-                        <span>5. Disease Surveillance & Control</span>
-                        <span>₱ 15,000,000.00</span>
-                    </div>
-                    <div class="budget-item">
-                        <span>6. Human Resources & Worker Benefits</span>
-                        <span>₱ 12,000,000.00</span>
-                    </div>
-                    <div class="budget-item">
-                        <span>7. Health Infrastructure & ICT</span>
-                        <span>₱ 18,000,000.00</span>
-                    </div>
-                    <div class="budget-item">
-                        <span>8. Capacity Building & Training</span>
-                        <span>₱ 5,000,000.00</span>
-                    </div>
-                    
-                    <!-- THE PERFECTLY TALLIED TOTAL -->
-                    <div class="budget-total">
-                        <span>Total Proposed Budget for CY 2027</span>
-                        <span>₱ 105,329,000.00</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- SLIDE 10: LAST PAGE (Thank You / Call to Action) -->
-        <div class="slide" id="slide10">
-            <div class="last-page-card">
-                <div class="logo-container" style="margin-bottom: 20px;">
-                    <img src="https://drive.google.com/thumbnail?id=1ajzYBo8BILP7xmVycYuent0WMF4iI2PG&sz=w500" alt="DOH Logo">
-                    <img src="https://drive.google.com/thumbnail?id=1ZX23SKg3CAe8JYPoaJbF5HHCT4UUZjQG&sz=w500" alt="Angono Logo">
-                    <img src="https://drive.google.com/thumbnail?id=1BqWTCHhIrJXMNDC4juCEC8FmxWtC3iBs&sz=w500" alt="MHO Logo">
-                </div>
-                <h1>Maraming Salamat po!</h1>
-                <p>Requesting the Local Health Board's endorsement and approval<br>of the CY 2027 AOP Resolution.</p>
-                <div style="display: inline-block; padding: 15px 40px; background: var(--tiffany-blue); color: white; border-radius: 50px; font-weight: bold; font-size: 20px; box-shadow: 0 10px 20px rgba(64, 224, 208, 0.4);">
-                    Ready for Approval
-                </div>
-            </div>
-        </div>
-
     </div>
 
+    <!-- Slide 4: Immunization (Big Numbers) -->
+    <div class="slide-container" id="slide4">
+        <div class="nav-overlay-left" onclick="prevSlide()"></div>
+        <div class="nav-overlay-right" onclick="nextSlide()"></div>
+
+        <div class="floating-title">
+            <h2>Priority 2: Expanded Immunization</h2>
+        </div>
+        
+        <div class="glass-card">
+            <div class="two-column highlight-numbers-layout">
+                <div>
+                    <div class="number">14,000</div>
+                    <div class="number-label">Doses of PCV10 Vaccine</div>
+                    <div class="sub-number">12,000</div>
+                    <p style="color: var(--text-muted); font-size: 18px; margin:0;">Doses of Flu Vaccine & PPSV23</p>
+                </div>
+                <div style="padding-left: 20px;">
+                    <h3 style="font-size: 28px;">Protecting Angono's Children</h3>
+                    <p>Comprehensive immunization rollout aiming for zero outbreak incidents and robust pediatric herd immunity.</p>
+                    <ul style="margin-top: 20px; padding: 0;">
+                        <li><strong>4,800 doses</strong> - Pentavalent Vaccine</li>
+                        <li><strong>4,800 doses</strong> - MMR Vaccine</li>
+                        <li><strong>4,800 doses</strong> - Japanese Encephalitis</li>
+                        <li><strong>4,000 doses</strong> - bOPV & IPV</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 5: Dental Care (Split Screen) -->
+    <div class="slide-container" id="slide5">
+        <div class="nav-overlay-left" onclick="prevSlide()"></div>
+        <div class="nav-overlay-right" onclick="nextSlide()"></div>
+
+        <div class="floating-title">
+            <h2>Priority 3: Oral Health Programs</h2>
+        </div>
+        
+        <div class="glass-card">
+            <div class="two-column">
+                <div>
+                    <h3 style="font-size: 30px; margin-bottom: 20px;">Primary Dental Care Access</h3>
+                    <ul>
+                        <li><strong>Dental Kits:</strong> Procurement of <strong>1,500 Kid's Dental Kits</strong> and <strong>1,500 Adult Dental Kits</strong>.</li>
+                        <li><strong>Clinical Upgrades:</strong> Modernizing clinics with new Autoclave Sterilizers and Ultrasonic Scalers.</li>
+                        <li><strong>Preventative Care:</strong> 210 units of Pits & Fissure Sealants.</li>
+                        <li><strong>Community Engagement:</strong> Province-wide awarding program for <strong>300 Orally Fit Children</strong>.</li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="image-wrapper">
+                        <!-- Placeholder that fits the Pastel Theme perfectly -->
+                        <img src="https://placehold.co/600x400/5eead4/0d9488?text=Primary+Dental+Care" alt="Dental Care">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 6: Family Planning (Data Grid) -->
+    <div class="slide-container" id="slide6">
+        <div class="nav-overlay-left" onclick="prevSlide()"></div>
+        <div class="nav-overlay-right" onclick="nextSlide()"></div>
+
+        <div class="floating-title">
+            <h2>Priority 4: Family Planning</h2>
+        </div>
+        
+        <div class="glass-card">
+            <p style="font-size: 20px; margin-bottom: 20px;">Investments to sustain robust Family Planning Outreach Missions and maternal empowerment.</p>
+            <div class="data-grid" style="width: 100%;">
+                <div class="data-grid-item"><strong>10,000</strong><span>DMPA Doses</span></div>
+                <div class="data-grid-item"><strong>8,000</strong><span>COC Pills</span></div>
+                <div class="data-grid-item"><strong>5,000</strong><span>POP Pills</span></div>
+                <div class="data-grid-item"><strong>1,000</strong><span>IUDs & Implants</span></div>
+                <div class="data-grid-item"><strong>10,000</strong><span>Male Condoms</span></div>
+                <div class="data-grid-item"><strong>3,000</strong><span>Lubricants (HIV/STI)</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 7: Disease Control (Tiles) -->
+    <div class="slide-container" id="slide7">
+        <div class="nav-overlay-left" onclick="prevSlide()"></div>
+        <div class="nav-overlay-right" onclick="nextSlide()"></div>
+
+        <div class="floating-title">
+            <h2>Priority 5: Disease Control</h2>
+        </div>
+        
+        <div class="glass-card">
+            <div class="tiled-content">
+                <div class="tile">
+                    <div class="icon"><i class="fa-solid fa-lungs-virus"></i></div>
+                    <h3>Tuberculosis</h3>
+                    <p>Targeting <strong>500 presumptive patients</strong> via active case finding and proposing <strong>1,000 TB Management Kits</strong>.</p>
+                </div>
+                <div class="tile">
+                    <div class="icon"><i class="fa-solid fa-mosquito"></i></div>
+                    <h3>Dengue & Malaria</h3>
+                    <p>Sustaining Dengue awareness campaigns in schools and maintaining the Zero-Malaria sustainability initiatives.</p>
+                </div>
+                <div class="tile">
+                    <div class="icon"><i class="fa-solid fa-vial-virus"></i></div>
+                    <h3>HIV & STI</h3>
+                    <p>Proposing <strong>600 Syphilis Test Kits</strong>, <strong>600 HIV Test Kits</strong>, and procuring local HIV Viral Load testing.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 8: HR & Infra (Rounded Image) -->
+    <div class="slide-container" id="slide8">
+        <div class="nav-overlay-left" onclick="prevSlide()"></div>
+        <div class="nav-overlay-right" onclick="nextSlide()"></div>
+
+        <div class="floating-title">
+            <h2>Priority 6: Frontliners & Infra</h2>
+        </div>
+        
+        <div class="glass-card">
+            <div class="two-column rounded-image-layout">
+                <div>
+                    <div class="image-wrapper" style="border-color: var(--tiffany-blue);">
+                        <img src="https://placehold.co/400x400/fbcfe8/f43f5e?text=HR+%26+Infrastructure" alt="Infrastructure">
+                    </div>
+                </div>
+                <div>
+                    <h3 style="margin-bottom: 20px;">Empowering our Workforce</h3>
+                    <ul style="margin-bottom: 30px;">
+                        <li>Providing <strong>100% of BHWs, BNS, and Job Orders</strong> with vital SSS and PhilHealth benefits.</li>
+                        <li>Hiring allocation for <strong>1 Dentist IV, 1 Dental Admin, and 10 new HRH</strong>.</li>
+                    </ul>
+                    <h3 style="margin-bottom: 20px;">Modernizing Facilities</h3>
+                    <ul>
+                        <li>Renovation of the Angono Logistics & Supply Management Unit.</li>
+                        <li>Acquisition of <strong>5 new ICT Equipment units</strong> for electronic medical records.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 9: The Perfect Budget Tally -->
+    <div class="slide-container" id="slide9">
+        <div class="nav-overlay-left" onclick="prevSlide()"></div>
+        <div class="nav-overlay-right" onclick="nextSlide()"></div>
+
+        <div class="floating-title">
+            <h2>CY 2027 Proposed Budget</h2>
+        </div>
+        
+        <div class="glass-card" style="padding: 30px;">
+            <div class="budget-grid">
+                <div class="budget-item">
+                    <span>1. Essential Medicines & NCDs</span>
+                    <span>₱ 18,200,000</span>
+                </div>
+                <div class="budget-item">
+                    <span>2. Expanded Immunization</span>
+                    <span>₱ 25,500,000</span>
+                </div>
+                <div class="budget-item">
+                    <span>3. Oral Health Program</span>
+                    <span>₱ 6,300,000</span>
+                </div>
+                <div class="budget-item">
+                    <span>4. Maternal & Family Planning</span>
+                    <span>₱ 9,450,000</span>
+                </div>
+                <div class="budget-item">
+                    <span>5. Disease Surveillance (TB/Dengue)</span>
+                    <span>₱ 11,100,000</span>
+                </div>
+                <div class="budget-item">
+                    <span>6. HRH Hiring & Worker Benefits</span>
+                    <span>₱ 15,800,000</span>
+                </div>
+                <div class="budget-item">
+                    <span>7. Health Infra, ICT & Logistics</span>
+                    <span>₱ 14,200,000</span>
+                </div>
+                <div class="budget-item">
+                    <span>8. Capacity Building & Training</span>
+                    <span>₱ 4,779,000</span>
+                </div>
+            </div>
+            
+            <div class="budget-total">
+                <span>Total CY 2027 Appropriation Request</span>
+                <span>₱ 105,329,000.00</span>
+            </div>
+            <p style="font-size: 13px; color: var(--text-muted); font-style: italic; margin-top: 15px; width:100%; text-align:center;">*Final figures are subject to LHB review, Municipal Budget Office approval, and LGU fund availability.</p>
+        </div>
+    </div>
+
+    <!-- Slide 10: Call to Action (With Logos Again) -->
+    <div class="slide-container full-bg-image" id="slide10">
+        <div class="nav-overlay-left" onclick="prevSlide()"></div>
+
+        <div class="content-overlay">
+            <!-- Logos again for final impact -->
+            <div class="logo-row" style="margin-bottom: 20px;">
+                <div class="logo-badge" style="width: 100px; height: 100px;"><img src="https://drive.google.com/thumbnail?id=1ajzYBo8BILP7xmVycYuent0WMF4iI2PG&sz=w500" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Department_of_Health_%28DOH%29_-_Philippines_seal.svg/1024px-Department_of_Health_%28DOH%29_-_Philippines_seal.svg.png'" alt="DOH"></div>
+                <div class="logo-badge" style="width: 120px; height: 120px; border-color: var(--accent-rose);"><img src="https://drive.google.com/thumbnail?id=1ZX23SKg3CAe8JYPoaJbF5HHCT4UUZjQG&sz=w500" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Angono_Rizal_seal.png/600px-Angono_Rizal_seal.png'" alt="Angono LGU"></div>
+                <div class="logo-badge" style="width: 100px; height: 100px;"><img src="https://drive.google.com/thumbnail?id=1BqWTCHhIrJXMNDC4juCEC8FmxWtC3iBs&sz=w500" onerror="this.style.display='none'" alt="MHO Angono"></div>
+            </div>
+
+            <h2>Maraming Salamat po!</h2>
+            <p style="font-size: 22px; margin-bottom: 25px; line-height: 1.6; color: var(--text-dark);">These targets represent our proposed investments to ensure that every resident of Angono feels the impact of Universal Health Care by 2027.</p>
+            <hr style="width: 80px; border: 2px solid var(--accent-rose); margin: 0 auto 25px auto;">
+            <p style="font-weight: 700; font-size: 24px; color: var(--primary-teal); text-transform: uppercase;">Requesting Approval of<br>Local Health Board Resolution</p>
+        </div>
+    </div>
+
+    <!-- Simple JavaScript for navigation -->
     <script>
         let currentSlide = 1;
         const totalSlides = 10;
 
-        function updateSlides() {
+        function showSlide(n) {
+            // Hide all slides
             for (let i = 1; i <= totalSlides; i++) {
-                const slide = document.getElementById('slide' + i);
-                if (i === currentSlide) {
-                    slide.classList.add('active');
-                } else {
-                    slide.classList.remove('active');
-                }
+                document.getElementById('slide' + i).classList.remove('active');
             }
+            // Show the active slide
+            document.getElementById('slide' + n).classList.add('active');
         }
 
         function nextSlide() {
             if (currentSlide < totalSlides) {
                 currentSlide++;
-                updateSlides();
+                showSlide(currentSlide);
             }
         }
 
         function prevSlide() {
             if (currentSlide > 1) {
                 currentSlide--;
-                updateSlides();
+                showSlide(currentSlide);
             }
         }
 
-        // Keyboard Navigation Support
+        // Keyboard navigation
         document.addEventListener('keydown', function(event) {
-            if (event.key === 'ArrowRight' || event.key === ' ') {
+            if (event.key === 'ArrowRight') {
                 nextSlide();
             } else if (event.key === 'ArrowLeft') {
                 prevSlide();
