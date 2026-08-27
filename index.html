@@ -6,39 +6,35 @@
     <title>Angono AOP CY 2027 - Executive Presentation</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
         :root {
-            /* TIFFANY BLUE & PASTEL PINK THEME */
-            --tiffany-blue: #0abab5; 
-            --tiffany-dark: #088b87;
-            --pastel-pink: #FFD1DC;
-            --pink-dark: #ff9eb5;
+            /* Tifanny Blue & Pastel Pink Premium Theme */
+            --tiffany-blue: #0abab5;
+            --tiffany-dark: #088c88;
+            --pastel-pink: #fce7f3;
+            --pastel-dark: #fbcfe8;
+            --accent-pink: #ec4899;
             --text-dark: #1e293b;
             --text-muted: #64748b;
-            --bg-light: #f8fafc;
             --white: #ffffff;
+            --glass-bg: rgba(255, 255, 255, 0.92);
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        /* Animated Gradient Background */
         body {
-            font-family: 'Inter', sans-serif;
-            overflow: hidden; /* Hide scrollbars for presentation */
-            background: linear-gradient(-45deg, #e0f7f6, #FFD1DC, #ffffff, #c2f0ee);
+            background: linear-gradient(-45deg, #fce7f3, #e0f2f1, #fbcfe8, #b2dfdb);
             background-size: 400% 400%;
             animation: gradientBG 15s ease infinite;
-            height: 100vh;
             display: flex;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
+            height: 100vh;
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
             color: var(--text-dark);
         }
 
@@ -48,27 +44,15 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* Invisible Navigators */
-        .nav-zone {
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            width: 15%;
-            z-index: 100;
-            cursor: pointer;
-        }
-        .nav-left { left: 0; }
-        .nav-right { right: 0; }
-
-        /* Slides Container */
         #presentation-container {
-            position: relative;
             width: 1280px;
             height: 720px;
-            overflow: hidden;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-            border-radius: 20px;
+            position: relative;
             background: transparent;
+            overflow: hidden;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            /* This div acts as the projector screen */
         }
 
         .slide {
@@ -77,576 +61,551 @@
             left: 0;
             width: 100%;
             height: 100%;
-            display: flex;
+            display: none; /* Hidden by default */
             flex-direction: column;
             align-items: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.5s ease-in-out;
-            padding: 40px;
+            justify-content: center;
         }
 
         .slide.active {
-            opacity: 1;
-            pointer-events: auto;
-            z-index: 10;
+            display: flex;
         }
 
-        /* Floating Title Layout */
-        .floating-header {
+        /* THE FLOATING TITLE */
+        .floating-title {
+            position: absolute;
+            top: 30px;
             background: linear-gradient(135deg, var(--tiffany-blue), var(--tiffany-dark));
             color: var(--white);
-            padding: 20px 40px;
-            border-radius: 16px;
-            box-shadow: 0 10px 25px rgba(10, 186, 181, 0.3);
-            width: 90%;
+            padding: 15px 50px;
+            border-radius: 50px;
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            font-weight: 700;
+            box-shadow: 0 10px 25px rgba(10, 186, 181, 0.4);
+            z-index: 10;
             text-align: center;
-            position: relative;
-            z-index: 2;
-            margin-bottom: -30px; /* Overlap with the card */
-            transform: translateY(-20px);
             opacity: 0;
+            transform: translateY(-50px);
         }
 
-        /* Glassmorphism Main Content Card */
+        /* THE GLASS CONTENT CARD */
         .glass-card {
-            background: rgba(255, 255, 255, 0.95);
+            position: absolute;
+            top: 110px; /* Gives space for the floating title above */
+            bottom: 40px;
+            left: 50px;
+            right: 50px;
+            background: var(--glass-bg);
             backdrop-filter: blur(10px);
-            border: 2px solid rgba(255, 255, 255, 0.5);
-            border-radius: 20px;
-            width: 100%;
-            flex-grow: 1;
-            padding: 60px 50px 40px 50px; /* Top padding extra for overlapping header */
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 24px;
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+            padding: 40px 50px;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            transform: translateY(20px);
             opacity: 0;
+            transform: translateY(50px);
+            z-index: 5;
         }
 
-        /* Slide Entrance Animations */
-        .slide.active .floating-header {
-            animation: slideDownFade 0.6s ease-out forwards;
+        /* ANIMATIONS FOR ACTIVE SLIDE */
+        .slide.active .floating-title {
+            animation: slideDown 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
             animation-delay: 0.1s;
         }
+
         .slide.active .glass-card {
-            animation: slideUpFade 0.6s ease-out forwards;
+            animation: slideUp 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
             animation-delay: 0.3s;
         }
 
-        @keyframes slideDownFade {
-            to { transform: translateY(0); opacity: 1; }
-        }
-        @keyframes slideUpFade {
-            to { transform: translateY(0); opacity: 1; }
+        .slide.active .animate-zoom {
+            animation: zoomIn 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+            opacity: 0;
         }
 
-        /* Typography */
-        h1, h2 {
-            font-family: 'Playfair Display', serif;
-            margin: 0;
+        .delay-1 { animation-delay: 0.5s !important; }
+        .delay-2 { animation-delay: 0.7s !important; }
+        .delay-3 { animation-delay: 0.9s !important; }
+        .delay-4 { animation-delay: 1.1s !important; }
+
+        @keyframes slideDown {
+            0% { opacity: 0; transform: translateY(-50px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideUp {
+            0% { opacity: 0; transform: translateY(50px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
         
-        .floating-header h2 {
-            font-size: 42px;
-            font-weight: 700;
-            letter-spacing: 1px;
+        @keyframes zoomIn {
+            0% { opacity: 0; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1); }
         }
-        .floating-header p.subtitle {
-            font-family: 'Inter', sans-serif;
-            font-size: 18px;
-            font-weight: 400;
-            color: #e0f2f1;
-            margin-top: 5px;
+
+        /* TEXT AND TYPOGRAPHY */
+        .technical-caption {
+            font-size: 20px;
+            font-weight: 500;
+            color: var(--tiffany-dark);
+            text-align: center;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 2px solid var(--pastel-dark);
+            padding-bottom: 15px;
+        }
+
+        h1.main-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 65px;
+            font-weight: 700;
+            color: var(--tiffany-dark);
+            text-align: center;
+            line-height: 1.1;
+            margin-bottom: 15px;
+        }
+
+        p.sub-title {
+            font-size: 24px;
+            color: var(--accent-pink);
+            text-align: center;
+            font-weight: 600;
+            margin-bottom: 30px;
             text-transform: uppercase;
             letter-spacing: 2px;
         }
 
-        .description {
-            font-size: 22px;
-            color: var(--tiffany-dark);
-            text-align: center;
-            font-style: italic;
-            margin-bottom: 30px;
-            font-weight: 500;
-        }
-
-        /* Logos Container */
+        /* LOGO CONTAINER (SLIDE 1) */
         .logo-container {
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 40px;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
         }
-        .logo {
-            width: 160px;
-            height: 160px;
+        
+        .logo-container img {
+            height: 140px;
+            width: auto;
             object-fit: contain;
             filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1));
             transition: transform 0.3s ease;
         }
-        .logo:hover {
-            transform: scale(1.05);
-        }
-        .center-logo {
-            width: 220px;
-            height: 220px;
+        
+        .logo-container img:hover {
+            transform: scale(1.1);
         }
 
-        /* Data Grids */
-        .data-grid-2col {
+        /* GRIDS & LAYOUTS */
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            height: 100%;
+        }
+
+        .data-list {
+            list-style: none;
+        }
+
+        .data-list li {
+            font-size: 22px;
+            margin-bottom: 18px;
+            padding-left: 35px;
+            position: relative;
+            font-weight: 400;
+        }
+        
+        .data-list li strong {
+            color: var(--tiffany-dark);
+            font-size: 26px;
+        }
+
+        .data-list li::before {
+            content: '\f058'; /* FontAwesome check-circle */
+            font-family: 'FontAwesome';
+            color: var(--accent-pink);
+            position: absolute;
+            left: 0;
+            top: 2px;
+            font-size: 24px;
+        }
+
+        /* HIGHLIGHT NUMBER BLOCKS */
+        .highlight-block {
+            background: rgba(251, 207, 232, 0.3); /* Soft pastel pink bg */
+            border-left: 5px solid var(--accent-pink);
+            padding: 20px 25px;
+            border-radius: 0 15px 15px 0;
+            margin-bottom: 20px;
+            transition: transform 0.2s ease;
+        }
+        
+        .highlight-block:hover {
+            transform: translateX(10px);
+            background: rgba(251, 207, 232, 0.6);
+        }
+
+        .highlight-block .big-num {
+            font-size: 45px;
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            color: var(--accent-pink);
+            line-height: 1;
+            margin-bottom: 5px;
+        }
+        
+        .highlight-block .num-label {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-dark);
+            text-transform: uppercase;
+        }
+
+        /* BUDGET TABLE (2 COLUMNS) */
+        .budget-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 30px;
-            width: 100%;
-        }
-
-        .info-box {
-            background: var(--bg-light);
-            border-left: 6px solid var(--tiffany-blue);
-            padding: 25px;
-            border-radius: 12px;
-            transition: all 0.3s ease;
-        }
-        .info-box:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(10, 186, 181, 0.15);
-            background: #ffffff;
-        }
-        .info-box.pink-border {
-            border-left-color: var(--pink-dark);
-        }
-        .info-box.pink-border:hover {
-            box-shadow: 0 10px 20px rgba(255, 158, 181, 0.2);
-        }
-
-        .info-box h3 {
-            font-size: 24px;
-            color: var(--text-dark);
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        .info-box h3 i {
-            color: var(--tiffany-blue);
-            font-size: 30px;
-        }
-        .info-box.pink-border h3 i {
-            color: var(--pink-dark);
-        }
-        
-        .info-box ul {
-            list-style: none;
-            padding: 0;
-        }
-        .info-box li {
-            font-size: 18px;
-            margin-bottom: 12px;
-            padding-left: 25px;
-            position: relative;
-        }
-        .info-box li::before {
-            content: '\f058';
-            font-family: 'FontAwesome';
-            position: absolute;
-            left: 0;
-            color: var(--tiffany-blue);
-        }
-        .info-box.pink-border li::before {
-            color: var(--pink-dark);
-        }
-        .info-box li strong {
-            font-size: 22px;
-            color: var(--tiffany-dark);
-        }
-
-        /* Specific fix for Budget and Meds table to fit perfectly */
-        .compact-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 18px;
-        }
-        .compact-table th {
-            background: var(--pastel-pink);
-            color: var(--text-dark);
-            padding: 12px;
-            text-align: left;
-            border-radius: 8px 8px 0 0;
-        }
-        .compact-table td {
-            padding: 10px 12px;
-            border-bottom: 1px solid #e2e8f0;
-        }
-        .compact-table td strong {
-            color: var(--tiffany-dark);
-            font-size: 20px;
-        }
-
-        /* Budget Total Highlight */
-        .budget-total-box {
-            background: linear-gradient(135deg, var(--text-dark), #0f172a);
-            color: var(--white);
-            text-align: center;
-            padding: 20px;
-            border-radius: 12px;
-            margin-top: 20px;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
-            border: 2px solid var(--tiffany-blue);
-        }
-        .budget-total-box span {
-            font-size: 20px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--pastel-pink);
-        }
-        .budget-total-box h2 {
-            font-size: 55px;
-            font-family: 'Inter', sans-serif;
-            font-weight: 800;
-            color: var(--tiffany-blue);
-            text-shadow: 0 0 20px rgba(10, 186, 181, 0.4);
-            margin-top: 5px;
-        }
-
-        /* Center Content specifically for Slide 1 & Last */
-        .center-all {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            height: 100%;
-        }
-        .title-massive {
-            font-size: 70px;
-            color: var(--tiffany-dark);
             margin-bottom: 20px;
-            line-height: 1.1;
         }
+
+        .budget-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px dashed var(--pastel-dark);
+            padding: 12px 0;
+        }
+
+        .budget-item span:first-child {
+            font-size: 18px;
+            font-weight: 500;
+            color: var(--text-dark);
+            max-width: 70%;
+        }
+
+        .budget-item span:last-child {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--tiffany-dark);
+            font-family: monospace;
+        }
+
+        .budget-total-box {
+            background: linear-gradient(135deg, var(--tiffany-blue), var(--tiffany-dark));
+            border-radius: 15px;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+            box-shadow: 0 10px 20px rgba(10, 186, 181, 0.3);
+            margin-top: auto;
+        }
+
+        .budget-total-box .total-label {
+            font-size: 28px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .budget-total-box .total-amount {
+            font-size: 45px;
+            font-weight: 700;
+            font-family: monospace;
+            color: #ffe4e6; /* Very light pink text for contrast */
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        /* INVISIBLE CLICK ZONES */
+        .nav-zone {
+            position: absolute;
+            top: 0;
+            height: 100%;
+            width: 150px;
+            z-index: 100;
+            cursor: pointer;
+        }
+        .nav-zone.left { left: 0; }
+        .nav-zone.right { right: 0; }
     </style>
 </head>
 <body>
 
-    <!-- Click left or right edge to navigate -->
-    <div class="nav-zone nav-left" onclick="prevSlide()" title="Previous Slide"></div>
-    <div class="nav-zone nav-right" onclick="nextSlide()" title="Next Slide"></div>
-
     <div id="presentation-container">
+        
+        <!-- Invisible Click Navigation -->
+        <div class="nav-zone left" onclick="prevSlide()" title="Previous Slide"></div>
+        <div class="nav-zone right" onclick="nextSlide()" title="Next Slide"></div>
 
-        <!-- SLIDE 1: Title & Logos -->
         <div class="slide active" id="slide1">
-            <div class="glass-card" style="padding: 60px;">
-                <div class="center-all">
-                    <div class="logo-container">
-                        <!-- LGU Angono Logo -->
-                        <!-- Using Google Drive Thumbnail Hack, falling back to Wikipedia, falling back to local file -->
-                        <img src="https://drive.google.com/thumbnail?id=1ZX23SKg3CAe8JYPoaJbF5HHCT4UUZjQG&sz=w500" 
-                             onerror="this.onerror=null; this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Angono_Rizal.png/512px-Angono_Rizal.png'; if(this.width < 50) this.src='angono (1).png';" 
-                             class="logo" alt="LGU Angono">
-                        
-                        <!-- MHO Logo (Center) -->
-                        <img src="https://drive.google.com/thumbnail?id=1BqWTCHhIrJXMNDC4juCEC8FmxWtC3iBs&sz=w800" 
-                             onerror="this.onerror=null; this.src='mho (1).png';" 
-                             class="logo center-logo" alt="MHO Angono">
-                        
-                        <!-- DOH Logo -->
-                        <img src="https://drive.google.com/thumbnail?id=1ajzYBo8BILP7xmVycYuent0WMF4iI2PG&sz=w500" 
-                             onerror="this.onerror=null; this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Department_of_Health_%28DOH%29.svg/512px-Department_of_Health_%28DOH%29.svg.png';" 
-                             class="logo" alt="DOH">
+            <div class="glass-card" style="top: 50px; bottom: 50px; justify-content: center;">
+                <div class="logo-container animate-zoom">
+                    <!-- DOH Logo (Wikipedia Direct Link) -->
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Department_of_Health_%28DOH%29_-_Philippines_seal.svg/1024px-Department_of_Health_%28DOH%29_-_Philippines_seal.svg.png" alt="DOH Logo">
+                    <!-- MHO Logo (From User's Google Drive via Thumbnail API) -->
+                    <img src="https://drive.google.com/thumbnail?id=1BqWTCHhIrJXMNDC4juCEC8FmxWtC3iBs&sz=w1000" alt="MHO Logo">
+                    <!-- Angono Logo (From User's Google Drive via Thumbnail API) -->
+                    <img src="https://drive.google.com/thumbnail?id=1ZX23SKg3CAe8JYPoaJbF5HHCT4UUZjQG&sz=w1000" alt="Angono Logo">
+                </div>
+                
+                <h1 class="main-title animate-zoom delay-1">Annual Operational Plan<br>CY 2027</h1>
+                <p class="sub-title animate-zoom delay-2">Executive Summary & Budgetary Targets</p>
+                <p class="animate-zoom delay-3" style="text-align: center; color: var(--text-muted); font-size: 18px; margin-top: 20px;">
+                    Presented to the Local Health Board<br>Municipality of Angono, Rizal
+                </p>
+            </div>
+        </div>
+
+        <div class="slide" id="slide2">
+            <div class="floating-title">Priority 1: Expanded Immunization</div>
+            <div class="glass-card">
+                <div class="technical-caption">Strategic procurement targeting comprehensive immunization coverage for pediatric demographics.</div>
+                
+                <div class="two-column" style="align-items: center;">
+                    <div style="display: flex; flex-direction: column; justify-content: center; height: 100%;">
+                        <div class="highlight-block animate-zoom delay-1">
+                            <div class="big-num">14,000</div>
+                            <div class="num-label">Doses of PCV10 Vaccine</div>
+                        </div>
+                        <div class="highlight-block animate-zoom delay-2">
+                            <div class="big-num">12,000</div>
+                            <div class="num-label">Doses of Flu Vaccine</div>
+                        </div>
+                        <div class="highlight-block animate-zoom delay-3">
+                            <div class="big-num">12,000</div>
+                            <div class="num-label">Doses of PPSV23 Vaccine</div>
+                        </div>
                     </div>
                     
-                    <h3 style="color: var(--pink-dark); font-family: 'Inter'; text-transform: uppercase; font-size: 20px; letter-spacing: 4px; margin-bottom: 10px;">Municipality of Angono</h3>
-                    <h1 class="title-massive">Annual Operational Plan<br>CY 2027</h1>
-                    <div style="width: 100px; height: 6px; background: var(--tiffany-blue); margin: 30px auto; border-radius: 3px;"></div>
-                    <p style="font-size: 24px; color: var(--text-muted);">Executive Summary & Budgetary Targets</p>
-                    <p style="margin-top: 40px; font-weight: 600; color: var(--tiffany-dark); text-transform: uppercase; letter-spacing: 1px;">Presented to the Local Health Board • September 11, 2026</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- SLIDE 2: Immunization -->
-        <div class="slide" id="slide2">
-            <div class="floating-header">
-                <h2>Priority 1: Expanded Immunization</h2>
-                <p class="subtitle">Ensuring robust herd immunity for 2027</p>
-            </div>
-            <div class="glass-card">
-                <p class="description">"Strategic procurement to protect Angono's children from preventable diseases."</p>
-                
-                <div class="data-grid-2col">
-                    <div class="info-box">
-                        <h3><i class="fa-solid fa-syringe"></i> High-Volume Vaccines</h3>
-                        <ul>
-                            <li><strong>14,000 doses</strong> of PCV10 Vaccine</li>
-                            <li><strong>12,000 doses</strong> of Flu Vaccine</li>
-                            <li><strong>12,000 doses</strong> of PPSV23</li>
-                        </ul>
-                    </div>
-                    <div class="info-box pink-border">
-                        <h3><i class="fa-solid fa-shield-virus"></i> Essential Childhood Care</h3>
-                        <ul>
-                            <li><strong>4,800 doses</strong> each of Pentavalent, MMR, & JE Vaccines</li>
-                            <li><strong>4,000 doses</strong> each of bOPV & IPV</li>
-                            <li><strong>2,000 doses</strong> of BCG Vaccine</li>
+                    <div class="animate-zoom delay-4">
+                        <ul class="data-list">
+                            <li><strong>4,800 doses</strong> of Pentavalent Vaccine</li>
+                            <li><strong>4,800 doses</strong> of MMR Vaccine</li>
+                            <li><strong>4,800 doses</strong> of Japanese Encephalitis (JE)</li>
+                            <li><strong>4,000 doses</strong> of bOPV (Oral Polio)</li>
+                            <li><strong>4,000 doses</strong> of IPV</li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- SLIDE 3: Essential Meds -->
         <div class="slide" id="slide3">
-            <div class="floating-header">
-                <h2>Priority 2: Essential & NCD Medicines</h2>
-                <p class="subtitle">Commodities targeted for CY 2027</p>
-            </div>
+            <div class="floating-title">Priority 2: Essential Medicines</div>
             <div class="glass-card">
-                <p class="description">"Aggressive procurement for lifestyle-related diseases and essential antibiotics."</p>
+                <div class="technical-caption">Primary healthcare intervention focused on the management of Lifestyle-Related Diseases and antibiotics.</div>
                 
-                <div class="data-grid-2col">
-                    <div class="info-box">
-                        <h3><i class="fa-solid fa-pills"></i> Maintenance Drugs (Boxes)</h3>
-                        <ul>
-                            <li><strong>7,000</strong> - Losartan 50mg</li>
-                            <li><strong>6,500</strong> - Amlodipine 5mg</li>
-                            <li><strong>5,000</strong> - Metformin HCl 500mg</li>
-                            <li><strong>4,500</strong> - Simvastatin 20mg</li>
-                            <li><strong>3,000 vials</strong> - Human Insulin 70/30</li>
+                <div class="two-column">
+                    <div class="animate-zoom delay-1">
+                        <h3 style="color: var(--tiffany-dark); margin-bottom: 15px; font-size: 24px;"><i class="fa-solid fa-pills" style="color: var(--accent-pink);"></i> Essential Drugs & Antibiotics</h3>
+                        <ul class="data-list">
+                            <li><strong>60,000 pcs</strong> Azithromycin 500mg</li>
+                            <li><strong>30,000 pcs</strong> Combined Vitamins (B-Complex & Ascorbic)</li>
+                            <li><strong>9,000 pcs</strong> Cloxacillin Sodium 250mg</li>
+                            <li><strong>18,000 pcs</strong> Cefixime, Metronidazole & Doxycycline</li>
                         </ul>
                     </div>
-                    <div class="info-box pink-border">
-                        <h3><i class="fa-solid fa-capsules"></i> Antibiotics & Anti-Rabies</h3>
-                        <ul>
-                            <li><strong>60,000 pcs</strong> - Azithromycin 500mg</li>
-                            <li><strong>27,000 pcs</strong> - Cloxacillin 250mg</li>
-                            <li><strong>5,000 vials</strong> - PVRV (Anti-Rabies)</li>
-                            <li><strong>1,000 vials</strong> - Equine Immunoglobulin</li>
+                    <div class="animate-zoom delay-2">
+                        <h3 style="color: var(--tiffany-dark); margin-bottom: 15px; font-size: 24px;"><i class="fa-solid fa-dog" style="color: var(--accent-pink);"></i> Rabies Management</h3>
+                        <ul class="data-list">
+                            <li><strong>5,000 vials</strong> PVRV (Anti-Rabies Vaccine)</li>
+                            <li><strong>1,000 vials</strong> Equine Immunoglobulin</li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- SLIDE 4: Oral Health -->
         <div class="slide" id="slide4">
-            <div class="floating-header">
-                <h2>Priority 3: Oral Health Programs</h2>
-                <p class="subtitle">Primary Dental Care Access for 2027</p>
-            </div>
+            <div class="floating-title">Priority 3: Oral Health Programs</div>
             <div class="glass-card">
-                <p class="description">"Equipping our dental missions to reach more communities and schools."</p>
+                <div class="technical-caption">Upgrading clinical dental facilities and ensuring universal access to primary oral healthcare supplies.</div>
                 
-                <div class="data-grid-2col">
-                    <div class="info-box">
-                        <h3><i class="fa-solid fa-tooth"></i> Outreach Supplies</h3>
-                        <ul>
-                            <li><strong>1,500 kits</strong> - Kid's Dental Kits</li>
-                            <li><strong>1,500 kits</strong> - Adult Dental Kits</li>
-                            <li><strong>210 units</strong> - Pits & Fissure Sealant</li>
-                            <li>Province-wide awarding for <strong>300 Orally Fit Children</strong></li>
+                <div class="two-column">
+                    <div class="animate-zoom delay-1">
+                        <ul class="data-list">
+                            <li><strong>1,500 units</strong> Kid's Dental Kits</li>
+                            <li><strong>1,500 units</strong> Adult Dental Kits</li>
+                            <li><strong>210 units</strong> Pits & Fissure Sealant</li>
                         </ul>
+                        <div class="highlight-block" style="margin-top: 30px;">
+                            <div class="big-num">300</div>
+                            <div class="num-label">Province-wide Awardees for<br>Orally Fit Children</div>
+                        </div>
                     </div>
-                    <div class="info-box pink-border">
-                        <h3><i class="fa-solid fa-chair"></i> Clinic Upgrades</h3>
-                        <ul>
-                            <li><strong>1 unit</strong> - Autoclave Sterilizer</li>
-                            <li><strong>2 units</strong> - Ultrasonic Scaler</li>
-                            <li><strong>2 sets</strong> - Dental Surgical Forceps</li>
-                            <li>Various dental anesthetics & restorative fillings</li>
+                    
+                    <div class="animate-zoom delay-2">
+                        <h3 style="color: var(--tiffany-dark); margin-bottom: 20px; font-size: 24px;"><i class="fa-solid fa-tooth" style="color: var(--accent-pink);"></i> Clinical Equipment Upgrades</h3>
+                        <ul class="data-list">
+                            <li>Procurement of New <strong>Autoclave Sterilizer</strong></li>
+                            <li>Acquisition of <strong>Ultrasonic Scalers</strong></li>
+                            <li>New <strong>Dental Surgical Forcep Sets</strong></li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- SLIDE 5: Family Planning -->
         <div class="slide" id="slide5">
-            <div class="floating-header">
-                <h2>Priority 4: Family Planning</h2>
-                <p class="subtitle">Empowering Maternal and Reproductive Health</p>
-            </div>
+            <div class="floating-title">Priority 4: Family Planning</div>
             <div class="glass-card">
-                <p class="description">"Sustaining robust Family Planning Outreach Missions across barangays."</p>
+                <div class="technical-caption">Sustaining comprehensive reproductive health outreach and maternal care programs across all barangays.</div>
                 
-                <div class="data-grid-2col">
-                    <div class="info-box pink-border">
-                        <h3><i class="fa-solid fa-person-breastfeeding"></i> Contraceptive Needs</h3>
-                        <ul>
-                            <li><strong>10,000 doses</strong> of DMPA</li>
-                            <li><strong>8,000 cycles</strong> of COC Pills</li>
-                            <li><strong>5,000 cycles</strong> of POP Pills</li>
-                            <li><strong>1,000 units</strong> each of IUDs & Implants</li>
-                        </ul>
+                <div class="two-column" style="margin-top: 20px;">
+                    <div style="display: flex; flex-direction: column; gap: 15px;" class="animate-zoom delay-1">
+                        <div class="highlight-block" style="margin-bottom: 0;">
+                            <div class="big-num">10,000</div><div class="num-label">DMPA Doses</div>
+                        </div>
+                        <div class="highlight-block" style="margin-bottom: 0;">
+                            <div class="big-num">8,000</div><div class="num-label">Combined Oral Contraceptive (COC) Pills</div>
+                        </div>
+                        <div class="highlight-block" style="margin-bottom: 0;">
+                            <div class="big-num">5,000</div><div class="num-label">Progestin-Only Pills (POP)</div>
+                        </div>
                     </div>
-                    <div class="info-box">
-                        <h3><i class="fa-solid fa-ribbon"></i> STI Prevention</h3>
-                        <ul>
-                            <li><strong>10,000 pcs</strong> of Male Condoms</li>
-                            <li><strong>3,000 pcs</strong> of Lubricants</li>
-                            <li>Outreach mission supplies (gloves, alcohol, cotton)</li>
+                    
+                    <div class="animate-zoom delay-2" style="display: flex; flex-direction: column; justify-content: center;">
+                        <ul class="data-list">
+                            <li><strong>1,000 units</strong> Intrauterine Devices (IUD)</li>
+                            <li><strong>1,000 units</strong> Subdermal Implants (PSI)</li>
+                            <li><strong>10,000 units</strong> Male Condoms</li>
+                            <li><strong>3,000 units</strong> Lubricants (For HIV/STI Outreach)</li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- SLIDE 6: Disease Control -->
         <div class="slide" id="slide6">
-            <div class="floating-header">
-                <h2>Priority 5: Disease Control</h2>
-                <p class="subtitle">Surveillance & Epidemic Response</p>
-            </div>
+            <div class="floating-title">Priority 5: Disease Control</div>
             <div class="glass-card">
-                <p class="description">"Aggressive case finding and sustainability of disease-free statuses."</p>
+                <div class="technical-caption">Proactive disease surveillance, active case finding, and rapid diagnostic deployment.</div>
                 
-                <div class="data-grid-2col">
-                    <div class="info-box">
-                        <h3><i class="fa-solid fa-lungs-virus"></i> TB & Dengue</h3>
-                        <ul>
-                            <li><strong>500 presumptive patients</strong> via active case finding (mobile x-rays)</li>
-                            <li><strong>1,000</strong> TB Management Kits</li>
-                            <li><strong>100 rolls</strong> Treated Screens for Dengue</li>
+                <div class="two-column">
+                    <div class="animate-zoom delay-1">
+                        <h3 style="color: var(--tiffany-dark); margin-bottom: 15px; font-size: 24px;"><i class="fa-solid fa-lungs-virus" style="color: var(--accent-pink);"></i> Tuberculosis Control</h3>
+                        <ul class="data-list">
+                            <li><strong>500</strong> Presumptive patients via active case finding (mobile x-rays)</li>
+                            <li><strong>1,000</strong> Comprehensive TB Management Kits</li>
                         </ul>
-                    </div>
-                    <div class="info-box pink-border">
-                        <h3><i class="fa-solid fa-vial-virus"></i> Surveillance Testing</h3>
-                        <ul>
-                            <li><strong>600</strong> Syphilis Test Kits</li>
-                            <li><strong>600</strong> HIV Test Kits</li>
-                            <li>HIV Viral Load Point of Care testing</li>
-                            <li>Trainings for 20 staff on emerging diseases</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- SLIDE 7: Frontliners -->
-        <div class="slide" id="slide7">
-            <div class="floating-header">
-                <h2>Priority 6: Frontliners & Infra</h2>
-                <p class="subtitle">Workforce Welfare and Facility Upgrades</p>
-            </div>
-            <div class="glass-card">
-                <p class="description">"Investing in the people and technology that deliver care."</p>
-                
-                <div class="data-grid-2col">
-                    <div class="info-box pink-border">
-                        <h3><i class="fa-solid fa-user-doctor"></i> Empowering Workforce</h3>
-                        <ul>
-                            <li><strong>100% of 134 BHWs/BNS/JOs</strong> to receive SSS & PhilHealth benefits</li>
-                            <li>Hiring of <strong>10 new HRH</strong> personnel</li>
-                            <li>Hiring of <strong>1 Dentist IV</strong> & 1 Dental Admin</li>
-                        </ul>
-                    </div>
-                    <div class="info-box">
-                        <h3><i class="fa-solid fa-computer"></i> Modernizing Facilities</h3>
-                        <ul>
-                            <li>Renovation of Logistics & Supply Unit (₱1M)</li>
-                            <li><strong>5 units</strong> of Desktop Computers for EMR</li>
-                            <li>Disaster Resilience: Tents, Go-bags, Generator</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- SLIDE 8: Budget -->
-        <div class="slide" id="slide8">
-            <div class="floating-header">
-                <h2>CY 2027 Proposed Budgetary Requirements</h2>
-                <p class="subtitle">Comprehensive Summary of AOP Particulars</p>
-            </div>
-            <div class="glass-card" style="padding: 40px;">
-                <div class="data-grid-2col" style="gap: 20px;">
-                    <!-- Column 1 -->
-                    <table class="compact-table">
-                        <thead>
-                            <tr><th>1. Essential Meds & NCDs</th></tr>
-                        </thead>
-                        <tbody>
-                            <tr><td><strong>₱ 13,874,000.00</strong></td></tr>
-                        </tbody>
                         
-                        <thead style="margin-top: 10px; display: table-row;">
-                            <tr><th>2. Expanded Immunization (EPI)</th></tr>
-                        </thead>
-                        <tbody>
-                            <tr><td><strong>₱ 46,742,000.00</strong></td></tr>
-                        </tbody>
-
-                        <thead style="margin-top: 10px; display: table-row;">
-                            <tr><th>3. Oral Health Program</th></tr>
-                        </thead>
-                        <tbody>
-                            <tr><td><strong>₱ 2,192,550.00</strong></td></tr>
-                        </tbody>
-
-                        <thead style="margin-top: 10px; display: table-row;">
-                            <tr><th>4. Maternal & Family Planning</th></tr>
-                        </thead>
-                        <tbody>
-                            <tr><td><strong>₱ 1,691,600.00</strong></td></tr>
-                        </tbody>
-                    </table>
-
-                    <!-- Column 2 -->
-                    <table class="compact-table">
-                        <thead>
-                            <tr><th>5. Disease Surveillance (TB, Dengue)</th></tr>
-                        </thead>
-                        <tbody>
-                            <tr><td><strong>₱ 13,385,000.00</strong></td></tr>
-                        </tbody>
-
-                        <thead style="margin-top: 10px; display: table-row;">
-                            <tr><th>6. Human Resources & Benefits</th></tr>
-                        </thead>
-                        <tbody>
-                            <tr><td><strong>₱ 11,542,000.00</strong></td></tr>
-                        </tbody>
-
-                        <thead style="margin-top: 10px; display: table-row;">
-                            <tr><th>7. Health Infra, ICT & Disaster</th></tr>
-                        </thead>
-                        <tbody>
-                            <tr><td><strong>₱ 14,354,850.00</strong></td></tr>
-                        </tbody>
-
-                        <thead style="margin-top: 10px; display: table-row;">
-                            <tr><th>8. Capacity Building & Trainings</th></tr>
-                        </thead>
-                        <tbody>
-                            <tr><td><strong>₱ 1,547,000.00</strong></td></tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <!-- MASSIVE TOTAL AT THE BOTTOM -->
-                <div class="budget-total-box">
-                    <span>Total Proposed Budget for CY 2027</span>
-                    <h2>₱ 105,329,000.00</h2>
+                        <h3 style="color: var(--tiffany-dark); margin-top: 30px; margin-bottom: 15px; font-size: 24px;"><i class="fa-solid fa-mosquito" style="color: var(--accent-pink);"></i> Dengue & Malaria</h3>
+                        <ul class="data-list">
+                            <li>Maintenance of <strong>Zero-Malaria</strong> Sustainability Program</li>
+                            <li>Extensive Dengue Awareness & treated screen deployments</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="animate-zoom delay-2">
+                        <h3 style="color: var(--tiffany-dark); margin-bottom: 15px; font-size: 24px;"><i class="fa-solid fa-vial-virus" style="color: var(--accent-pink);"></i> HIV & STI Diagnostics</h3>
+                        <div class="highlight-block">
+                            <div class="big-num">600</div>
+                            <div class="num-label">Syphilis Test Kits</div>
+                        </div>
+                        <div class="highlight-block">
+                            <div class="big-num">600</div>
+                            <div class="num-label">HIV Rapid Test Kits</div>
+                        </div>
+                        <ul class="data-list">
+                            <li>Deployment of local HIV Viral Load Point of Care (POC) Testing</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- SLIDE 9: Closing -->
-        <div class="slide" id="slide9">
-            <div class="glass-card" style="padding: 60px; text-align: center; justify-content: center; height: 100%;">
-                <div class="center-all">
-                    <i class="fa-solid fa-handshake-angle" style="font-size: 80px; color: var(--pink-dark); margin-bottom: 30px;"></i>
-                    <h1 style="font-size: 60px; color: var(--tiffany-dark); margin-bottom: 20px;">Maraming Salamat po!</h1>
-                    <p style="font-size: 24px; color: var(--text-dark); max-width: 800px; line-height: 1.6; margin-bottom: 40px;">
-                        Ang pondo pong ito ay direktang pamumuhunan para sa kalusugan, kaligtasan, at kinabukasan ng bawat pamilyang Angoneño.
-                    </p>
-                    <div style="padding: 20px 40px; background: var(--tiffany-blue); border-radius: 50px; display: inline-block; box-shadow: 0 10px 20px rgba(10,186,181,0.3);">
-                        <h3 style="color: white; font-size: 22px; font-weight: 600; margin: 0; letter-spacing: 1px;">
-                            Requesting Approval of LHB Resolution
-                        </h3>
+        <div class="slide" id="slide7">
+            <div class="floating-title">Priority 6: Workforce & Infra</div>
+            <div class="glass-card">
+                <div class="technical-caption">Capacity building, human resource expansion, and modernization of health infrastructure.</div>
+                
+                <div class="two-column">
+                    <div class="animate-zoom delay-1">
+                        <h3 style="color: var(--tiffany-dark); margin-bottom: 15px; font-size: 24px;"><i class="fa-solid fa-user-doctor" style="color: var(--accent-pink);"></i> Empowering Frontliners</h3>
+                        <ul class="data-list">
+                            <li><strong>100%</strong> of BHWs, BNS, and Job Orders to receive full SSS & PhilHealth Benefits</li>
+                            <li>Hiring allocation for <strong>1 Dentist IV</strong> and <strong>1 Dental Admin</strong></li>
+                            <li>Hiring of <strong>10 new HRH</strong> personnel for barangay stations</li>
+                        </ul>
                     </div>
+                    
+                    <div class="animate-zoom delay-2">
+                        <h3 style="color: var(--tiffany-dark); margin-bottom: 15px; font-size: 24px;"><i class="fa-solid fa-server" style="color: var(--accent-pink);"></i> Health Infra Upgrades</h3>
+                        <ul class="data-list">
+                            <li>Complete renovation of the <strong>Angono Logistics & Supply Management Unit</strong></li>
+                            <li>Acquisition of <strong>5 new ICT Equipment units</strong> for digital medical records</li>
+                            <li>Procurement of critical equipment for the Evacuation Center</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" id="slide8">
+            <div class="floating-title" style="background: var(--accent-pink);">2027 Proposed Budget</div>
+            <div class="glass-card">
+                <div class="technical-caption">Comprehensive financial appropriation matrix for the implementation of the CY 2027 AOP.</div>
+                
+                <!-- 2-Column Budget Layout to prevent cut-off -->
+                <div class="budget-container animate-zoom delay-1">
+                    <div>
+                        <div class="budget-item">
+                            <span>1. Essential Medicines & NCD Commodities</span>
+                            <span>₱ 13,874,000.00</span>
+                        </div>
+                        <div class="budget-item">
+                            <span>2. Expanded Program on Immunization</span>
+                            <span>₱ 46,742,000.00</span>
+                        </div>
+                        <div class="budget-item">
+                            <span>3. Oral Health Program</span>
+                            <span>₱ 2,192,550.00</span>
+                        </div>
+                        <div class="budget-item">
+                            <span>4. Maternal, FP & STI Prevention</span>
+                            <span>₱ 1,691,600.00</span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="budget-item">
+                            <span>5. Disease Surveillance (TB, Dengue, Malaria)</span>
+                            <span>₱ 13,385,000.00</span>
+                        </div>
+                        <div class="budget-item">
+                            <span>6. Human Resources & Worker Welfare</span>
+                            <span>₱ 15,702,000.00</span>
+                        </div>
+                        <div class="budget-item">
+                            <span>7. Health Infra, ICT & Logistics</span>
+                            <span>₱ 11,041,850.00</span>
+                        </div>
+                        <div class="budget-item">
+                            <span>8. Capacity Building & Trainings</span>
+                            <span>₱ 700,000.00</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Big Total Box at the bottom -->
+                <div class="budget-total-box animate-zoom delay-2">
+                    <div class="total-label">Total Proposed Budget</div>
+                    <div class="total-amount">₱ 105,329,000.00</div>
+                </div>
+                
+            </div>
+        </div>
+        
+        <div class="slide" id="slide9">
+            <div class="glass-card" style="top: 50px; bottom: 50px; justify-content: center; align-items: center; background: linear-gradient(135deg, var(--tiffany-blue), var(--pastel-pink)); border: none;">
+                <h1 class="main-title animate-zoom delay-1" style="font-size: 80px; color: var(--white); text-shadow: 0 4px 10px rgba(0,0,0,0.1);">Maraming Salamat Po!</h1>
+                <p class="sub-title animate-zoom delay-2" style="color: var(--tiffany-dark); margin-top: 20px;">Requesting Approval & Endorsement of the Local Health Board Resolution</p>
+                <div class="animate-zoom delay-3" style="margin-top: 40px; font-size: 80px; color: var(--white);">
+                    <i class="fa-solid fa-handshake-angle"></i>
                 </div>
             </div>
         </div>
@@ -654,37 +613,37 @@
     </div>
 
     <script>
-        let currentSlide = 1;
+        let currentSlideIndex = 1;
         const totalSlides = 9;
 
-        function showSlide(slideIndex) {
-            // Hide all slides
-            for (let i = 1; i <= totalSlides; i++) {
+        function showSlide(index) {
+            // Remove active class from all slides
+            for(let i = 1; i <= totalSlides; i++) {
                 document.getElementById('slide' + i).classList.remove('active');
             }
-            // Show targeted slide
-            document.getElementById('slide' + slideIndex).classList.add('active');
+            // Add active class to current slide to trigger animations
+            document.getElementById('slide' + index).classList.add('active');
         }
 
         function nextSlide() {
-            if (currentSlide < totalSlides) {
-                currentSlide++;
-                showSlide(currentSlide);
+            if(currentSlideIndex < totalSlides) {
+                currentSlideIndex++;
+                showSlide(currentSlideIndex);
             }
         }
 
         function prevSlide() {
-            if (currentSlide > 1) {
-                currentSlide--;
-                showSlide(currentSlide);
+            if(currentSlideIndex > 1) {
+                currentSlideIndex--;
+                showSlide(currentSlideIndex);
             }
         }
 
         // Add keyboard navigation
         document.addEventListener('keydown', function(event) {
-            if (event.key === 'ArrowRight' || event.key === 'Space') {
+            if(event.key === 'ArrowRight') {
                 nextSlide();
-            } else if (event.key === 'ArrowLeft') {
+            } else if(event.key === 'ArrowLeft') {
                 prevSlide();
             }
         });
